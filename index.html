@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>API JUST STREAM IT</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" media="screen and (max-width: 1920px)" />
+    <link rel="stylesheet" media="all and (min-width: 900px) and (max-width: 1600px)" href="css/style.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="leftBanner">
+                <p id="logo">JustStreamIt</p>
+            </div>
+            <div class="rightBanner">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Ma liste</a></li>
+                    <li><a href="#">Mon Compte</a></li>
+                    <li><a class="fas fa-search"></a></li>
+                    <li><a class="fas fa-bell"></a></li>
+                </ul>
+            </div>
+            <img src="sass/composants/hamburger.png" alt="hamburger" class="hamburger">
+        </nav>
+    </header>
+
+
+    <p>id : <span id="id"></span></p>    
+    <div class="promo">
+        <div class="img">
+            <span id="img_jacket"></span>
+        </div>
+        <div class="description">
+            <b><span id="title"></span></b>
+            <ul>
+                <li>Genre:  <span id="genres"></span></li>
+                <li>Date de sortie:  <span id="date_published"></span></li>
+                <li>Rated:  <span id="rated"></span></li>
+                <li>Imdb_score:  <span id="imdb_score"></span></li>
+                <li>Realisateur:  <span id="directors"></span></li>
+            </ul>
+        </div>
+        <div class="description">
+            <ul>
+                <li><h2>Starring:</h2></li>
+                <li><span id="actors0"></span></li>
+                <li><span id="actors1"></span></li>
+                <li><span id="actors2"></span></li>
+            </ul>
+        </div>
+        <div class="divers">
+            <ul>
+                <li><h2>Divers</h2></li>
+                <li>Duree:  <span id="duration"></span> Minutes</li>
+                <li>Pays origine:  <span id="countries"></span></li>
+                <li>Box Office:  <span id="worldwide_gross_income"></span></li>
+            </ul>
+        </div>
+        <div class="sujet">
+            <h2>Sujet</h2>
+            <i><span id="description"></span></i>
+        </div>
+    </div>
+
+<!--==============================================================================================-->                                    
+
+    <div class="container">                    
+        <div class="carouselBest">
+            <div class="img">
+                <span id="img_best0"></span>
+            </div>
+            <div class="img">
+                <span id="img_best1"></span>
+            </div>
+            <div class="img">
+                <span id="img_best2"></span>
+            </div>
+            <div class="img">
+                <span id="img_best3"></span>
+            </div>
+            <div class="img">
+                <span id="img_best4"></span>
+            </div>
+        </div>    
+
+        <div class="carouselAction">
+            <div class="img">
+                <span id="img_action0"></span>
+            </div>
+            <div class="img">
+                <span id="img_action1"></span>
+            </div>
+            <div class="img">
+                <span id="img_action2"></span>
+            </div>
+            <div class="img">
+                <span id="img_action3"></span>
+            </div>
+            <div class="img">
+                <span id="img_action4"></span>
+            </div>
+        </div>
+
+        <div class="carouselThriller">
+            <div class="img">
+                <span id="img_thriller0"></span>
+            </div>
+            <div class="img">
+                <span id="img_thriller1"></span>
+            </div>
+            <div class="img">
+                <span id="img_thriller2"></span>
+            </div>
+            <div class="img">
+                <span id="img_thriller3"></span>
+            </div>
+            <div class="img">
+                <span id="img_thriller4"></span>
+            </div>
+        </div>      
+
+    </div>
+    
+<!--==========================================================================================-->
+
+    
+
+    <script src="script.js" async></script>
+
+    <script>
+        const menuHamburger = document.querySelector(".hamburger")
+        const navLinks = document.querySelector(".rightBanner")
+
+        menuHamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-menu')
+        })
+    </script>
+
+    <footer></footer>
+</body>
+    
+</html>
