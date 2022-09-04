@@ -5,12 +5,14 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   text-decoration: none;
   list-style: none;
 }
 
 body {
   font-family: "ostrich", Arial;
+  padding: 50px;
   background-color: white;
   width: 100%;
 }
@@ -250,28 +252,64 @@ header {
   margin: 20px;
 }
 
-.container .carouselBest {
+.img {
   display: flex;
 }
 
-.container .carouselBest .img {
-  margin-right: 10px;
+.carouselAction {
+  display: block;
 }
 
-.container .carouselAction {
+.carousel0 .carousel__tanker {
   display: flex;
 }
 
-.container .carouselAction .img {
-  margin-right: 10px;
+.carousel0 .carousel__tanker .img {
+  margin: 2px;
 }
 
-.container .carouselThriller {
+.carousel1 {
+  display: flex;
+  width: 100%;
+}
+
+.carousel1 .carousel__tanker {
   display: flex;
 }
 
-.container .carouselThriller .img {
-  margin-right: 10px;
+.carousel1 .carousel__tanker .img {
+  display: flex;
+  margin-left: 2px;
 }
+
+.carousel2 .carousel__tanker {
+  display: inline;
+  display: flex;
+}
+
+/*
+.item {
+    margin: 40px 10px;
+    background-color: #ffffff;
+}
+
+.item__body {
+    padding: 25px;
+}
+
+.item {
+    position: relative;
+}
+
+.carousel .item {
+    float: left;
+}
+
+.carousel__tanker::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+    */
 
 /*# sourceMappingURL=style.css.map */
