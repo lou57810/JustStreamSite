@@ -1,3 +1,4 @@
+
 // =====================Le Meilleur score================
 
 const promise00 = fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score");
@@ -26,20 +27,6 @@ promise00.then(async (responseData) => {
                 const worldwide_gross_income = response["worldwide_gross_income"];
                 const description = response["description"];
 
-                console.log(image_url);
-                console.log(title);
-                console.log(genres);
-                console.log(date_published);
-                console.log(rated);
-                console.log(Number(imdb_score));
-                console.log(directors);
-                console.log(actors0);
-                console.log(actors1);
-                console.log(actors2);
-                console.log(duration);
-                console.log(countries);
-                console.log(worldwide_gross_income);
-                console.log(description);
 
                 const display_image_url = document.querySelector("#img_jacket");
                 const display_title = document.querySelector("#title");
@@ -86,61 +73,82 @@ promise00.then(async (responseData) => {
 // ==================== Affichage page web =============================================
 // Declaration variables
 
+/*
+// ======================= Caroussel ===============================
+addNew();
+
+function addNew() {
+    const DivContainer = document.getElementById("div-containers");
+    for (let i = 0; i < 3; i++) {
+        const newDiv = document.createElement("div");        
+        newDiv.classList.add('container' + i);
+        DivContainer.appendChild(newDiv);
+    }
+}
+
+//addNew();
+/*
+async function getResponse(url, q_selector) {    
+    const promise0 = await fetch(url);
+    const response0 = await promise0.json();       
+                   
+    for (let i = 0; i < 5; i++) {
+        try {
+            const id = response0["results"][i]["id"];   // id  movies x 5
+            // console.log('id :', id);
+            
+            const promise1 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
+            // console.log('promisel: ', promise1);
+            promise1.then(async (responseData) => {
+                const response = await responseData.json();
+                try {
+                    const image_url = response["image_url"];
+                    console.log('image_url: ', image_url);
+                    
+                    const display_image_url = document.querySelector(q_selector);
+                    console.log('display_img_url: ', display_image_url);
+                    const image = `<img src="${image_url}">`;
+                    
+                    display_image_url.insertAdjacentHTML("afterbegin", image);                    
+                } catch (err) {
+                    console.log(err);
+                }
+            })
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
+}
+/*
+const Container0 = document.getElementsByClassName("container0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".container0");
+const Container1 = document.getElementsByClassName("container1");
+Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".container1");
+const Container2 = document.getElementsByClassName("container2");
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller", ".container2");
+/*
 class Movie {
     constructor(image_url, title, genres, date_published,
         rated, imdb_score, directors, actors, duration,
         countries, worldwide, description) {
         this.image_url = image_url,
-        this.title = title,
-        this.genres = genres,
-        this.date_published = date_published,
-        this.rated = rated,
-        this.imdb_score = imdb_score,
-        this.directors = directors,
-        this.actors = actors,
-        this.duration = duration,
-        this.countries = countries,
-        this.worldwide = worldwide,
-        this.description = description
+            this.title = title,
+            this.genres = genres,
+            this.date_published = date_published,
+            this.rated = rated,
+            this.imdb_score = imdb_score,
+            this.directors = directors,
+            this.actors = actors,
+            this.duration = duration,
+            this.countries = countries,
+            this.worldwide = worldwide,
+            this.description = description
     }
 }
 
-function display_datas(response) {
-    // select DOM elt
-    const eltPos = document.querySelector(".modalContainer");
-    console.log('eltPos', eltPos);
-}
-display_datas()
-
-
-// ==================== 7 meilleurs scores page1 page2 =================================
-
-
-
-async function getResponse(url, q_selector) {    
-    const promise0 = await fetch(url);
-    const response0 = await promise0.json();        
-    
-    for (let i = 0; i < 5; i++)
-        try {
-            const id = response0["results"][i]["id"];   // id  movies x 5
-            const promise0 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
-            promise0.then(async (responseData) => {
-                const response0 = await responseData.json();
-                try {
-                    const image_url = response0["image_url"];
-                    const display_image_url = document.querySelector(q_selector + i);
-                    const image = `<img src="${image_url}">`;
-                    display_image_url.insertAdjacentHTML("afterbegin", image);
-                } catch (err) {
-                    console.log(err);
-                }
-            })
-        } catch (err) {
-            console.log(err);
-        }    
-}
-
+/*
 async function getResponseNext(url, q_selector) {
     const promise1 = await fetch(url);
     const response1 = await promise1.json();    
@@ -148,7 +156,7 @@ async function getResponseNext(url, q_selector) {
     for (let j = 0; j < 5; j++)
         try {
             const id = response1["results"][j]["id"];   // id  movies x 5
-            const promise1 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
+            const promise1 = fetch("ht_tp://localhost:8000/api/v1/titles/" + id + ""); // id par movie
             promise1.then(async (responseData) => {
                 const response1 = await responseData.json();
                 try {
@@ -164,78 +172,233 @@ async function getResponseNext(url, q_selector) {
             console.log(err);
         }
 }
+*/
+
+// getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score", "#img_best");
+
+
+    // for (let k = 0; k < 3; k++) {
+    // const para = document.createElement("carousel" + k);
+    ////const para = document.createElement("carousel");
+    //if (k == 0) {
+    ////para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score", "#img_best");
+
+    //para.innerHTML = getResponseNext("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", "#img_best");
+    //}
+    /*
+        else if (k == 1) {
+            para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", "#img_action");
+            //para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", "#img_action");
+        }
+        else if (k == 2) {
+            para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller", "#img_thriller");
+            //para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller&page=2", "#img_thriller");
+        }
+        */
+    //document.getElementById("container").appendChild(para);
+    //}
 
 
 
-for (let k = 0; k < 3; k++) {
-    const para = document.createElement("carousel" + k);
-    if (k == 0) {
-        para.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", "#img_best");
-        para.innerHTML = getResponseNext("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", "#img_best");
-    }
-    else if (k == 1) {
-        para.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", "#img_action");
-        para.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", "#img_action");
-    }
-    else if (k == 2) {
-        para.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller", "#img_thriller");
-        para.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller&page=2", "#img_thriller");
-    }
-    // document.getElementById("container").appendChild(para);
-}
-
-
-
-// ============================================================================================
-
+    // ============================================================================================
 /*
 class Carousel {
     /*
-     * @param (HTMLElement) element 
-     * @param (Object) options
-     * @param (Object) options.slidesToScroll Nombre d'éléments à faire défiler
-     * @param (Object) options.slidesVisible Nombre d'élément visibles dans un slide
+     * @param {HTMLElement} element 
+     * @param {Object} options
+     * @param {Object} options.slidesToScroll Nombre d'éléments à faire défiler
+     * @param {Object} options.slidesVisible Nombre d'élément visibles dans un slide
     */
-/*
+  /*
     constructor(element, options = {}) {
         this.element = element;
         this.options = Object.assign({}, {
-            slidesToScroll: 10,
-            slidesVisible: 6
+            slidesToScroll: 7,
+            slidesVisible: 7
         }, options);
-        this.children = [].slice.call(element.children);
-        let root = this.createDivWithClass('carousel');
-        let container = this.createDivWithClass('carousel__tanker');
-        root.appendChild(container);
-        this.element.appendChild(root);
-        this.children.forEach((child) => {
-            let item = this.createDivWithClass('carousel__item')
-            item.appendChild(child)
-            container.appendChild(item)
+        let children = [].slice.call(element.children);
+        this.currentItem = 0;
+        //let ratio = this.children.length / this.options.slidesVisible;
+        this.root = this.createDivWithClass('.carousel');
+        //let root = this.createDivWithClass('carousel');
+        //let root = this.createDivWithClass('carousel')
+        this.container = this.createDivWithClass('.carousel__container');
+        this.root.appendChild(this.container);
+        this.element.appendChild(this.root);
+        this.items = children.map((child) => {        
+            let item = this.createDivWithClass('.carousel__item');            
+            item.appendChild(child);
+            this.container.appendChild(item);
+            return item;
         })
+        this.setStyle();
+    }
 
-        /*
-         * @param (string) className
-         * @returns (HTMLElement)
-         */
+    /*
+     * Apply dim of elts carousel
+     */
+    /*
+    setStyle() {
+        let ratio = this.items.length / this.options.slidesVisible;
+        this.container.style.width = (ratio * 100) + "%";
+        this.items.forEach(item => item.style.width = ((100 / this.options.slidesVisible) / ratio) + "%");
+    }
 
+    createNavigation() {
+        let nextButton = this.createDivWithClass('carousel__next');
+        let previousButton = this.createDivWithClass('carousel__previous');
+        this.root.appendChild(nextButton);
+        this.root.appendChild(previousButton);
+        nextButton.addEventListener('click', this.next.bind(this));
+        previousButton.addEventListener('click', this.previous.bind(this));
+    }
+
+    next() {
+        this.gotoItem(this.currentItem + this.options.slidesToScroll);
+    }
+
+    previous() {
+        this.gotoItem(this.currentItem - this.options.slidesToScroll);
+    }
+
+    /*
+     * Scroll slides
+     * @param {numbers} index
+     */
 /*
-        function createDivWithClass(className) {
-            let div = documenet.createElement('div');
-            div.setAttribute('class', className);
-            return div;
-        }
-}
+    gotoItem(index) {
+        let translateX = index * -100 / this.items.length;
+        this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)';
+        this.currentItem = index;
+    }
 
+    /*
+     * @param {string} className
+     * @returns {HTMLElement}
+     */
+/*
+    createDivWithClass(className) {
+        let div = document.createElement('div');
+        div.setAttribute('class', className);
+        return div;
+     }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
 
-
-
-    new Carousel(document.querySelector('#carousel1'), {
-        slidesToScroll: 7,
-        slidesVisible: 7
+    new Carousel(document.querySelector('#carousel1'), {            // Base #carousel1
+        // slidesToScroll: 0,
+        // slidesVisible: 0
     })
 })
 
+/*
+* @param {container0} Modale
+* @param {container1} imdb-score
+* @param {container2} Action
+* @param {container3} Thriller      
 */
+
+// ===================================== Youtube ===========================================
+
+/*
+showMovieData()
+async function showMovieData() {
+    const promise = fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score");
+    promise.then(async (responseData) => {
+        const response = await responseData.json();
+
+        response.map(function (cur, index) {
+            sliders.insertAdjacentHTML(
+                "beforeend", `<img class="img-${index} slider-img"
+                src="http://url")`
+            )
+        })
+ */
+
+addNew();
+/*
+function addNew() {
+    
+    const DivContainer = document.querySelector(".carouselbox");
+    for (let i = 0; i < 3; i++) {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add('container' + i);
+        DivContainer.appendChild(newDiv);
+        for (let j = 0; j < 5; j++) {
+            const newdiv = document.createElement("div");
+            newdiv.classList.add('imag' + j);
+            newDiv.appendChild(newdiv);
+        }
+    }
+}
+*/
+
+function addNew() {
+    const DivContainer = document.querySelector(".carousel");
+    for (let i = 0; i < 3; i++) {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add('carouselbox' + i);
+        DivContainer.appendChild(newDiv);
+        for (let j = 0; j < 5; j++) {
+            const newdiv = document.createElement("div");
+            newdiv.classList.add('imag' + j);
+            newDiv.appendChild(newdiv);
+        }
+    }
+}
+
+//const sliders = document.querySelector(".carouselbox");
+var scrollPerClick;
+var ImagePaddin = 20;
+let imgStock = [];
+
+async function getResponse(url, q_selector) {
+    const promise1 = await fetch(url);
+    const response1 = await promise1.json();
+
+    for (let j = 0; j < 5; j++)
+        try {
+            //const id = response1["results"][j]["id"];   // id  movies x 5
+            const url = response1["results"][j]["image_url"];   // id  movies x 5
+            console.log('url: ', url);
+            //const promise2 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
+            //console.log('promise2: ', promise2);
+            //promise2.then(async (responseData) => {
+            //const response1 = await responseData.json();                
+
+            try {
+                //const image_url = response1["image_url"];
+                imgStock.push(url);
+                const display_image_url = document.querySelector(q_selector);
+                //console.log('q_selector ', q_selector);
+                //console.log('baliseHTML:', display_image_url);                     
+                const image = `<img src = "${url}">`;
+                //console.log('image:', image);
+
+                display_image_url.insertAdjacentHTML("beforeend", image);
+                //} catch (err) {
+                //console.log(err);
+                //}                
+                //})
+
+                console.log('tab_images:', imgStock);
+            } catch (err) {
+                console.log(err);
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+}
+    
+
+const Container0 = document.getElementsByClassName(".carouselbox0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".carouselbox0");
+const Container1 = document.getElementsByClassName(".carouselbox1");
+Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".carouselbox1");
+const Container2 = document.getElementsByClassName(".carouselbox2");
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation", ".carouselbox2");
+
+
+

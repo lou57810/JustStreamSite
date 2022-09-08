@@ -5,20 +5,116 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   text-decoration: none;
   list-style: none;
 }
 
 body {
   font-family: "ostrich", Arial;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   padding: 50px;
   background-color: white;
-  width: 100%;
+}
+
+.carousel {
+  height: 250px;
+  width: 80%;
+  position: relative;
+}
+
+.carousel .switchLeft,
+.carousel .switchRight {
+  color: gray;
+  font-weight: bold;
+  height: 100%;
+  line-height: 250px;
+  font-size: 25px;
+  text-align: center;
+  background-color: lightgreen;
+  font-family: Arial;
+  top: 0;
+  z-index: 3;
+}
+
+.carousel .switchLeft {
+  position: absolute;
+  left: -50px;
+}
+
+.carousel .switchRight {
+  position: absolute;
+  right: -50px;
+}
+
+.carouselbox0, .carouselbox1, .carouselbox2 {
+  height: 250px;
+  width: auto;
+  overflow: scroll;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.carouselbox0 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselbox1 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselbox2 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselbox0 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carouselbox1 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carouselbox2 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
 }
 
 header {
-  height: 30vh;
+  height: 25vh;
   width: 98%;
   background-size: cover;
 }
@@ -27,7 +123,7 @@ header {
   position: absolute;
   padding: 20px 20px 20px 20px;
   width: 98%;
-  height: 15%;
+  height: 20%;
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
@@ -207,7 +303,7 @@ header {
 */
 .promo {
   width: 98%;
-  height: 26%;
+  height: 30%;
   display: flex;
   align-items: center;
   background-color: #231f1f;
@@ -248,68 +344,58 @@ header {
   font-size: 1em;
 }
 
-.container {
-  margin: 20px;
-}
-
-.img {
-  display: flex;
-}
-
-.carouselAction {
-  display: block;
-}
-
-.carousel0 .carousel__tanker {
-  display: flex;
-}
-
-.carousel0 .carousel__tanker .img {
-  margin: 2px;
-}
-
-.carousel1 {
-  display: flex;
-  width: 100%;
-}
-
-.carousel1 .carousel__tanker {
-  display: flex;
-}
-
-.carousel1 .carousel__tanker .img {
-  display: flex;
-  margin-left: 2px;
-}
-
-.carousel2 .carousel__tanker {
-  display: inline;
-  display: flex;
+#img_jacket {
+  width: 200px;
+  height: 100px;
 }
 
 /*
 .item {
     margin: 40px 10px;
     background-color: #ffffff;
+    box-shadow: 0 15px 35px #3232321a,0 5px 15px #0000001a;
+    transition: transform 0.3s;
+    transform: translate3d(0, -1px, 0);
 }
 
-.item__body {
-    padding: 25px;
-}
-
-.item {
+.carousel {
     position: relative;
 }
 
-.carousel .item {
+.carousel__item {
     float: left;
 }
 
-.carousel__tanker::after {
+.carousel__container::after {
     content: '';
     clear: both;
     display: table;
 }
-    */
+
+.carousel__next, .carousel__previous {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #FFF url(right.svg) center center no-repeat;
+    background-size: 20px 20px;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: 20px;
+    right: -20px;
+    box-shadow: 0 15px 35px #3232321a,0 5px 15px #0000001a;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.carousel.carousel__previous {
+    background-image: url(left.svg);
+    right: auto;
+    left: 20px;
+}
+
+*/
+h2 {
+  height: 30px;
+}
 
 /*# sourceMappingURL=style.css.map */
