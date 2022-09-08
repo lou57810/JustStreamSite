@@ -26,28 +26,87 @@ body {
   position: relative;
 }
 
-.carousel .switchLeft,
-.carousel .switchRight {
-  color: gray;
-  font-weight: bold;
-  height: 100%;
-  line-height: 250px;
-  font-size: 25px;
-  text-align: center;
-  background-color: lightgreen;
-  font-family: Arial;
-  top: 0;
-  z-index: 3;
+/*
+.carouselbox0 .switchLeft,
+.carouselbox0 .switchRight {
+    color: black;
+    font-weight:bold;
+    height: 100%;
+    line-height: 250px;
+    font-size: 25px;
+    text-align: center;
+    background-color: lightgreen;
+    font-family: Arial;
+    top: 0;
+    z-index: 3;
 }
 
-.carousel .switchLeft {
-  position: absolute;
-  left: -50px;
+.carouselbox0 .switchLeft {
+    position: absolute;
+    left: -50px;
 }
 
-.carousel .switchRight {
+.carouselbox0 .switchRight {
+    position: absolute;
+    right: -50px;
+}
+
+.carouselbox1 .switchLeft,
+.carouselbox1 .switchRight {
+    color: gray;
+    font-weight: bold;
+    height: 100%;
+    line-height: 250px;
+    font-size: 25px;
+    text-align: center;
+    background-color: lightgreen;
+    font-family: Arial;
+    top: 0;
+    z-index: 3;
+}
+
+.carouselbox1 .switchLeft {
+    position: absolute;
+    left: -50px;
+}
+
+.carouselbox1 .switchRight {
+    position: absolute;
+    right: -50px;
+}
+
+.carouselbox2 .switchLeft,
+.carouselbox2 .switchRight {
+    color: gray;
+    font-weight: bold;
+    height: 100%;
+    line-height: 250px;
+    font-size: 25px;
+    text-align: center;
+    background-color: lightgreen;
+    font-family: Arial;
+    top: 0;
+    z-index: 3;
+}
+
+.carouselbox2 .switchLeft {
+    position: absolute;
+    left: -50px;
+}
+
+//.carouselbox2 .switchRight {
+//    position: absolute;
+ //   right: -50px;
+//}
+*/
+diva {
   position: absolute;
-  right: -50px;
+  color: red;
+}
+
+divb {
+  text-align: right;
+  color: green;
 }
 
 .carouselbox0, .carouselbox1, .carouselbox2 {
@@ -57,6 +116,7 @@ body {
   white-space: nowrap;
   display: inline-block;
   text-align: center;
+  padding-left: 10px;
   padding-bottom: 10px;
   display: flex;
   align-items: center;
@@ -349,51 +409,6 @@ header {
   height: 100px;
 }
 
-/*
-.item {
-    margin: 40px 10px;
-    background-color: #ffffff;
-    box-shadow: 0 15px 35px #3232321a,0 5px 15px #0000001a;
-    transition: transform 0.3s;
-    transform: translate3d(0, -1px, 0);
-}
-
-.carousel {
-    position: relative;
-}
-
-.carousel__item {
-    float: left;
-}
-
-.carousel__container::after {
-    content: '';
-    clear: both;
-    display: table;
-}
-
-.carousel__next, .carousel__previous {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: #FFF url(right.svg) center center no-repeat;
-    background-size: 20px 20px;
-    border-radius: 50%;
-    top: 50%;
-    margin-top: 20px;
-    right: -20px;
-    box-shadow: 0 15px 35px #3232321a,0 5px 15px #0000001a;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.carousel.carousel__previous {
-    background-image: url(left.svg);
-    right: auto;
-    left: 20px;
-}
-
-*/
 h2 {
   height: 30px;
 }

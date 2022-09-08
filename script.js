@@ -337,9 +337,20 @@ function addNew() {
 function addNew() {
     const DivContainer = document.querySelector(".carousel");
     for (let i = 0; i < 3; i++) {
+        
         const newDiv = document.createElement("div");
-        newDiv.classList.add('carouselbox' + i);
+        
         DivContainer.appendChild(newDiv);
+        const diva = document.createElement("diva");
+        diva.innerHTML = "<h1>< previous </h1>";
+        newDiv.appendChild(diva);
+
+        newDiv.classList.add('carouselbox' + i);
+
+        const divb = document.createElement("divb");
+        divb.innerHTML = "<h1>< next </h1>";
+        newDiv.appendChild(divb);
+        
         for (let j = 0; j < 5; j++) {
             const newdiv = document.createElement("div");
             newdiv.classList.add('imag' + j);
@@ -359,30 +370,18 @@ async function getResponse(url, q_selector) {
 
     for (let j = 0; j < 5; j++)
         try {
-            //const id = response1["results"][j]["id"];   // id  movies x 5
+            
             const url = response1["results"][j]["image_url"];   // id  movies x 5
-            console.log('url: ', url);
-            //const promise2 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
-            //console.log('promise2: ', promise2);
-            //promise2.then(async (responseData) => {
-            //const response1 = await responseData.json();                
+            console.log('url: ', url);                           
 
-            try {
-                //const image_url = response1["image_url"];
+            try {                
                 imgStock.push(url);
                 const display_image_url = document.querySelector(q_selector);
-                //console.log('q_selector ', q_selector);
-                //console.log('baliseHTML:', display_image_url);                     
-                const image = `<img src = "${url}">`;
-                //console.log('image:', image);
+                                     
+                const image = `<img src = "${url}">`;                
 
                 display_image_url.insertAdjacentHTML("beforeend", image);
-                //} catch (err) {
-                //console.log(err);
-                //}                
-                //})
-
-                console.log('tab_images:', imgStock);
+                
             } catch (err) {
                 console.log(err);
             }
@@ -390,15 +389,16 @@ async function getResponse(url, q_selector) {
         } catch (err) {
             console.log(err);
         }
-}
-    
+}     
 
 const Container0 = document.getElementsByClassName(".carouselbox0");
 Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".carouselbox0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", ".carouselbox0");
+
 const Container1 = document.getElementsByClassName(".carouselbox1");
 Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".carouselbox1");
+Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselbox1");
+
 const Container2 = document.getElementsByClassName(".carouselbox2");
 Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation", ".carouselbox2");
-
-
-
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselbox2");
