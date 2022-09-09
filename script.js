@@ -316,7 +316,7 @@ async function showMovieData() {
         })
  */
 
-addNew();
+
 /*
 function addNew() {
     
@@ -334,29 +334,38 @@ function addNew() {
 }
 */
 
+addNew();
 function addNew() {
+    //let chevronL = "\<";
+    
     const DivContainer = document.querySelector(".carousel");
-    for (let i = 0; i < 3; i++) {
-        
-        const newDiv = document.createElement("div");
-        
-        DivContainer.appendChild(newDiv);
-        const diva = document.createElement("diva");
-        diva.innerHTML = "<h1>< previous </h1>";
-        newDiv.appendChild(diva);
+    for (let i = 0; i < 3; i++) {        
+        // carouselbox
+        const newDivMain = document.createElement("div");        
+        DivContainer.appendChild(newDivMain);        
+        newDivMain.classList.add('carouselbox' + i);
 
-        newDiv.classList.add('carouselbox' + i);
+        let switchLeft = document.createElement("div");
+        switchLeft.classList.add("switchLeft");
+        newDivMain.appendChild(switchLeft);
 
-        const divb = document.createElement("divb");
-        divb.innerHTML = "<h1>< next </h1>";
-        newDiv.appendChild(divb);
+        let chevronL = document.createElement("img");
+        chevronL.src = "fonts/left_blue.png";
+        switchLeft.appendChild(chevronL);
+
+        const newDivImg = document.createElement("div");
+        newDivImg.classList.add('carouselimg' + i);
         
-        for (let j = 0; j < 5; j++) {
-            const newdiv = document.createElement("div");
-            newdiv.classList.add('imag' + j);
-            newDiv.appendChild(newdiv);
-        }
-    }
+        newDivMain.appendChild(newDivImg);
+        
+        let switchRight = document.createElement("div");
+        switchRight.classList.add("switchRight");
+        newDivMain.appendChild(switchRight);
+
+        let chevronR = document.createElement("img");
+        chevronR.src = "fonts/right_blue.png";
+        switchRight.appendChild(chevronR);
+    }     
 }
 
 //const sliders = document.querySelector(".carouselbox");
@@ -392,13 +401,13 @@ async function getResponse(url, q_selector) {
 }     
 
 const Container0 = document.getElementsByClassName(".carouselbox0");
-Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".carouselbox0");
-Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", ".carouselbox0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".carouselimg0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", ".carouselimg0");
 
 const Container1 = document.getElementsByClassName(".carouselbox1");
-Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".carouselbox1");
-Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselbox1");
+Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".carouselimg1");
+Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselimg1");
 
 const Container2 = document.getElementsByClassName(".carouselbox2");
-Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation", ".carouselbox2");
-Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselbox2");
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation", ".carouselimg2");
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselimg2");

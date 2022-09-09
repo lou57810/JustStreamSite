@@ -11,7 +11,7 @@
 
 body {
   font-family: "ostrich", Arial;
-  height: 100vh;
+  height: 80%;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -21,9 +21,9 @@ body {
 }
 
 .carousel {
-  height: 250px;
-  width: 80%;
-  position: relative;
+  height: 60%;
+  width: 98%;
+  margin-left: 8%;
 }
 
 /*
@@ -99,30 +99,29 @@ body {
  //   right: -50px;
 //}
 */
-diva {
-  position: absolute;
-  color: red;
-}
-
-divb {
-  text-align: right;
-  color: green;
-}
-
 .carouselbox0, .carouselbox1, .carouselbox2 {
   height: 250px;
-  width: auto;
+  width: 90%;
+  display: inline-block;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.carouselimg0, .carouselimg1, .carouselimg2 {
+  height: 250px;
+  width: 70%;
   overflow: scroll;
   white-space: nowrap;
   display: inline-block;
-  text-align: center;
-  padding-left: 10px;
-  padding-bottom: 10px;
   display: flex;
-  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }
 
-.carouselbox0 img {
+.carouselimg0 img {
   min-width: 147px;
   max-width: 147px;
   height: 200px;
@@ -134,7 +133,7 @@ divb {
   z-index: 2;
 }
 
-.carouselbox1 img {
+.carouselimg1 img {
   min-width: 147px;
   max-width: 147px;
   height: 200px;
@@ -146,7 +145,7 @@ divb {
   z-index: 2;
 }
 
-.carouselbox2 img {
+.carouselimg2 img {
   min-width: 147px;
   max-width: 147px;
   height: 200px;
@@ -158,19 +157,79 @@ divb {
   z-index: 2;
 }
 
-.carouselbox0 img:hover {
+.carouselimg0 img:hover {
   transform: scale(1.4);
   z-index: 5;
 }
 
-.carouselbox1 img:hover {
+.carouselimg1 img:hover {
   transform: scale(1.4);
   z-index: 5;
 }
 
-.carouselbox2 img:hover {
+.carouselimg2 img:hover {
   transform: scale(1.4);
   z-index: 5;
+}
+
+.carouselbox0 .switchLeft img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: red;
+  font-size: 10px;
+}
+
+.carouselbox0 .switchRight img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: green;
+  font-size: 10px;
+}
+
+.carouselbox1 .switchLeft img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: red;
+  font-size: 10px;
+}
+
+.carouselbox1 .switchRight img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: green;
+  font-size: 10px;
+}
+
+.carouselbox2 .switchLeft img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: red;
+  font-size: 10px;
+}
+
+.carouselbox2 .switchRight img {
+  padding-top: 80px;
+  padding-left: 10px;
+  font-weight: bold;
+  height: 30%;
+  width: 45px;
+  color: green;
+  font-size: 10px;
 }
 
 header {
