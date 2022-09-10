@@ -349,6 +349,7 @@ function addNew() {
         switchLeft.classList.add("switchLeft");
         newDivMain.appendChild(switchLeft);
 
+        //let chevronL = document.createElement("button");
         let chevronL = document.createElement("img");
         chevronL.src = "fonts/left_blue.png";
         switchLeft.appendChild(chevronL);
@@ -373,41 +374,119 @@ var scrollPerClick;
 var ImagePaddin = 20;
 let imgStock = [];
 
-async function getResponse(url, q_selector) {
-    const promise1 = await fetch(url);
+imgTab = [];
+/*
+async function getResponse0(url, q_selector) {
+    
+    const promise0 = await fetch(url);
+    const response0 = await promise0.json();
+
+    for (let j = 0; j < 5; j++)
+        try {            
+            const url = response0["results"][j]["image_url"];   // id  movies x 5
+            console.log('url5: ' + j, url);
+            try {                
+                // imgTab.push(url);
+                const display_image_url = document.querySelector(q_selector);
+                const image = `<img src = "${url}">`;
+                display_image_url.insertAdjacentHTML("beforeend", image);
+            } catch (err) {
+                console.log(err);
+            }
+        } catch (err) {
+            console.log(err);
+        }    
+}
+*/
+async function getResponse(url1, url2, q_selector) {
+    const promise1 = await fetch(url1);
     const response1 = await promise1.json();
 
     for (let j = 0; j < 5; j++)
         try {
-            
-            const url = response1["results"][j]["image_url"];   // id  movies x 5
-            console.log('url: ', url);                           
-
-            try {                
-                imgStock.push(url);
+            const url = response1["results"][j]["image_url"];   // id  movies x 2
+            console.log('url1: ' + j, url);
+            try {
+                imgTab.push(url);
                 const display_image_url = document.querySelector(q_selector);
-                                     
-                const image = `<img src = "${url}">`;                
-
+                const image = `<img src = "${url}">`;
                 display_image_url.insertAdjacentHTML("beforeend", image);
-                
             } catch (err) {
                 console.log(err);
             }
-
         } catch (err) {
             console.log(err);
         }
-}     
+
+    const promise2 = await fetch(url2);
+    const response2 = await promise2.json();
+    console.log('Réponse2: ', response2);
+
+    for (let j = 0; j < 3; j++)
+        try {
+            const url = response2["results"][j]["image_url"];   // id  movies x 2
+            console.log('url2: ' + j, url);
+            try {
+                imgTab.push(url);
+                const display_image_url = document.querySelector(q_selector);
+                const image = `<img src = "${url}">`;
+                display_image_url.insertAdjacentHTML("beforeend", image);
+            } catch (err) {
+                console.log(err);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    console.log("tab: ", imgTab);
+}
 
 const Container0 = document.getElementsByClassName(".carouselbox0");
-Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".carouselimg0");
-Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", ".carouselimg0");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score",
+    "http://localhost:8000/api/v1/titles/?page=2&sort_by=-imdb_score", ".carouselimg0");
 
 const Container1 = document.getElementsByClassName(".carouselbox1");
-Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".carouselimg1");
-Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselimg1");
+Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action",
+    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselimg1");
 
 const Container2 = document.getElementsByClassName(".carouselbox2");
-Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation", ".carouselimg2");
-Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselimg2");
+Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation",
+    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselimg2");
+     
+    
+
+
+/*
+const sliders = document.querySelector(".carouselimg");
+let scrollPerClick;
+let ImagePadding = 20;
+
+showMovieData();
+
+let scrollAmount = 0;
+
+function sliderScrollLeft() {
+    sliders.scrollTo({
+        top: 0,
+        left: (scrollAmount -= scrollPerClick),
+        behaviour: "smooth",
+    });
+    if (scrollAmount < 0) {
+        scrollAmount = 0;
+    }
+}
+
+function sliderScrollRight() {
+    if (scrollAmount <= sliders.scrollWidth - sliders.clientWidth) {
+        sliders.scrollTo({
+            top: 0,
+            left: (scrollAmount += scrollPerClick),
+            behaviour: "smooth",
+        });
+    }    
+};
+    
+
+
+
+scrollPerClick = document.querySelector(".img-1").clientWidth + imagePadding;
+*/
