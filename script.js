@@ -70,274 +70,12 @@ promise00.then(async (responseData) => {
     }
 })
 
-// ==================== Affichage page web =============================================
-// Declaration variables
-
-/*
-// ======================= Caroussel ===============================
-addNew();
-
-function addNew() {
-    const DivContainer = document.getElementById("div-containers");
-    for (let i = 0; i < 3; i++) {
-        const newDiv = document.createElement("div");        
-        newDiv.classList.add('container' + i);
-        DivContainer.appendChild(newDiv);
-    }
-}
-
-//addNew();
-/*
-async function getResponse(url, q_selector) {    
-    const promise0 = await fetch(url);
-    const response0 = await promise0.json();       
-                   
-    for (let i = 0; i < 5; i++) {
-        try {
-            const id = response0["results"][i]["id"];   // id  movies x 5
-            // console.log('id :', id);
-            
-            const promise1 = fetch("http://localhost:8000/api/v1/titles/" + id + ""); // id par movie
-            // console.log('promisel: ', promise1);
-            promise1.then(async (responseData) => {
-                const response = await responseData.json();
-                try {
-                    const image_url = response["image_url"];
-                    console.log('image_url: ', image_url);
-                    
-                    const display_image_url = document.querySelector(q_selector);
-                    console.log('display_img_url: ', display_image_url);
-                    const image = `<img src="${image_url}">`;
-                    
-                    display_image_url.insertAdjacentHTML("afterbegin", image);                    
-                } catch (err) {
-                    console.log(err);
-                }
-            })
-
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    
-}
-/*
-const Container0 = document.getElementsByClassName("container0");
-Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score", ".container0");
-const Container1 = document.getElementsByClassName("container1");
-Container1.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", ".container1");
-const Container2 = document.getElementsByClassName("container2");
-Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller", ".container2");
-/*
-class Movie {
-    constructor(image_url, title, genres, date_published,
-        rated, imdb_score, directors, actors, duration,
-        countries, worldwide, description) {
-        this.image_url = image_url,
-            this.title = title,
-            this.genres = genres,
-            this.date_published = date_published,
-            this.rated = rated,
-            this.imdb_score = imdb_score,
-            this.directors = directors,
-            this.actors = actors,
-            this.duration = duration,
-            this.countries = countries,
-            this.worldwide = worldwide,
-            this.description = description
-    }
-}
-
-/*
-async function getResponseNext(url, q_selector) {
-    const promise1 = await fetch(url);
-    const response1 = await promise1.json();    
-
-    for (let j = 0; j < 5; j++)
-        try {
-            const id = response1["results"][j]["id"];   // id  movies x 5
-            const promise1 = fetch("ht_tp://localhost:8000/api/v1/titles/" + id + ""); // id par movie
-            promise1.then(async (responseData) => {
-                const response1 = await responseData.json();
-                try {
-                    const image_url = response1["image_url"];                    
-                    const display_image_url = document.querySelector(q_selector + (j + 5));
-                    const image = `<img src="${image_url}">`;
-                    display_image_url.insertAdjacentHTML("afterbegin", image);
-                } catch (err) {
-                    console.log(err);
-                }
-            })
-        } catch (err) {
-            console.log(err);
-        }
-}
-*/
-
-// getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score", "#img_best");
 
 
-    // for (let k = 0; k < 3; k++) {
-    // const para = document.createElement("carousel" + k);
-    ////const para = document.createElement("carousel");
-    //if (k == 0) {
-    ////para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score", "#img_best");
-
-    //para.innerHTML = getResponseNext("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page=2", "#img_best");
-    //}
-    /*
-        else if (k == 1) {
-            para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action", "#img_action");
-            //para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", "#img_action");
-        }
-        else if (k == 2) {
-            para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller", "#img_thriller");
-            //para.innerHTML = getResponse("ht_tp://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Thriller&page=2", "#img_thriller");
-        }
-        */
-    //document.getElementById("container").appendChild(para);
-    //}
-
-
-
-    // ============================================================================================
-/*
-class Carousel {
-    /*
-     * @param {HTMLElement} element 
-     * @param {Object} options
-     * @param {Object} options.slidesToScroll Nombre d'éléments à faire défiler
-     * @param {Object} options.slidesVisible Nombre d'élément visibles dans un slide
-    */
-  /*
-    constructor(element, options = {}) {
-        this.element = element;
-        this.options = Object.assign({}, {
-            slidesToScroll: 7,
-            slidesVisible: 7
-        }, options);
-        let children = [].slice.call(element.children);
-        this.currentItem = 0;
-        //let ratio = this.children.length / this.options.slidesVisible;
-        this.root = this.createDivWithClass('.carousel');
-        //let root = this.createDivWithClass('carousel');
-        //let root = this.createDivWithClass('carousel')
-        this.container = this.createDivWithClass('.carousel__container');
-        this.root.appendChild(this.container);
-        this.element.appendChild(this.root);
-        this.items = children.map((child) => {        
-            let item = this.createDivWithClass('.carousel__item');            
-            item.appendChild(child);
-            this.container.appendChild(item);
-            return item;
-        })
-        this.setStyle();
-    }
-
-    /*
-     * Apply dim of elts carousel
-     */
-    /*
-    setStyle() {
-        let ratio = this.items.length / this.options.slidesVisible;
-        this.container.style.width = (ratio * 100) + "%";
-        this.items.forEach(item => item.style.width = ((100 / this.options.slidesVisible) / ratio) + "%");
-    }
-
-    createNavigation() {
-        let nextButton = this.createDivWithClass('carousel__next');
-        let previousButton = this.createDivWithClass('carousel__previous');
-        this.root.appendChild(nextButton);
-        this.root.appendChild(previousButton);
-        nextButton.addEventListener('click', this.next.bind(this));
-        previousButton.addEventListener('click', this.previous.bind(this));
-    }
-
-    next() {
-        this.gotoItem(this.currentItem + this.options.slidesToScroll);
-    }
-
-    previous() {
-        this.gotoItem(this.currentItem - this.options.slidesToScroll);
-    }
-
-    /*
-     * Scroll slides
-     * @param {numbers} index
-     */
-/*
-    gotoItem(index) {
-        let translateX = index * -100 / this.items.length;
-        this.container.style.transform = 'translate3d(' + translateX + '%, 0, 0)';
-        this.currentItem = index;
-    }
-
-    /*
-     * @param {string} className
-     * @returns {HTMLElement}
-     */
-/*
-    createDivWithClass(className) {
-        let div = document.createElement('div');
-        div.setAttribute('class', className);
-        return div;
-     }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    new Carousel(document.querySelector('#carousel1'), {            // Base #carousel1
-        // slidesToScroll: 0,
-        // slidesVisible: 0
-    })
-})
-
-/*
-* @param {container0} Modale
-* @param {container1} imdb-score
-* @param {container2} Action
-* @param {container3} Thriller      
-*/
-
-// ===================================== Youtube ===========================================
-
-/*
-showMovieData()
-async function showMovieData() {
-    const promise = fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score");
-    promise.then(async (responseData) => {
-        const response = await responseData.json();
-
-        response.map(function (cur, index) {
-            sliders.insertAdjacentHTML(
-                "beforeend", `<img class="img-${index} slider-img"
-                src="http://url")`
-            )
-        })
- */
-
-
-/*
-function addNew() {
-    
-    const DivContainer = document.querySelector(".carouselbox");
-    for (let i = 0; i < 3; i++) {
-        const newDiv = document.createElement("div");
-        newDiv.classList.add('container' + i);
-        DivContainer.appendChild(newDiv);
-        for (let j = 0; j < 5; j++) {
-            const newdiv = document.createElement("div");
-            newdiv.classList.add('imag' + j);
-            newDiv.appendChild(newdiv);
-        }
-    }
-}
-*/
 
 addNew();
 function addNew() {
-    //let chevronL = "\<";
-    
+   
     const DivContainer = document.querySelector(".carousel");
     for (let i = 0; i < 3; i++) {        
         // carouselbox
@@ -348,10 +86,11 @@ function addNew() {
         let switchLeft = document.createElement("div");
         switchLeft.classList.add("switchLeft");
         newDivMain.appendChild(switchLeft);
-
-        //let chevronL = document.createElement("button");
+        
         let chevronL = document.createElement("img");
-        chevronL.src = "fonts/left_blue.png";
+        chevronL.src = "fonts/left.png";
+        //chevronL.addEventListener("click", alertMeL());
+        
         switchLeft.appendChild(chevronL);
 
         const newDivImg = document.createElement("div");
@@ -363,54 +102,49 @@ function addNew() {
         switchRight.classList.add("switchRight");
         newDivMain.appendChild(switchRight);
 
+
+        next_url = document.getElementsByClassName("input").value;  ////?????
+
+
         let chevronR = document.createElement("img");
-        chevronR.src = "fonts/right_blue.png";
+        chevronR.src = "fonts/right.png";
+        chevronR.addEventListener("click", alertMeR(next_url));
+        
         switchRight.appendChild(chevronR);
     }     
 }
 
-//const sliders = document.querySelector(".carouselbox");
-var scrollPerClick;
-var ImagePaddin = 20;
-let imgStock = [];
-
-imgTab = [];
-/*
-async function getResponse0(url, q_selector) {
-    
-    const promise0 = await fetch(url);
-    const response0 = await promise0.json();
-
-    for (let j = 0; j < 5; j++)
-        try {            
-            const url = response0["results"][j]["image_url"];   // id  movies x 5
-            console.log('url5: ' + j, url);
-            try {                
-                // imgTab.push(url);
-                const display_image_url = document.querySelector(q_selector);
-                const image = `<img src = "${url}">`;
-                display_image_url.insertAdjacentHTML("beforeend", image);
-            } catch (err) {
-                console.log(err);
-            }
-        } catch (err) {
-            console.log(err);
-        }    
+function alertMeR(url) {
+    console.log('new_url: ', url);
 }
-*/
-async function getResponse(url1, url2, q_selector) {
-    const promise1 = await fetch(url1);
-    const response1 = await promise1.json();
 
+function alertMeL(url) {
+    console.log('new_url: ', url);
+}
+
+
+imgTab0 = [];
+imgTab1 = [];
+imgTab2 = [];
+//           NEXT PREVIOUS
+let i;
+
+async function getResponse(url1, url2, q_selector, i) {     // index
+    
+    const promise1 = await fetch(url1);
+    const response1 = await promise1.json();    
     for (let j = 0; j < 5; j++)
         try {
             const url = response1["results"][j]["image_url"];   // id  movies x 2
-            console.log('url1: ' + j, url);
-            try {
-                imgTab.push(url);
-                const display_image_url = document.querySelector(q_selector);
-                const image = `<img src = "${url}">`;
-                display_image_url.insertAdjacentHTML("beforeend", image);
+            const previous_url = response1["previous"];
+            console.log("previous:", previous_url);
+            try {                
+                const display_image_url1 = document.querySelector(q_selector);
+                const image1 = `<img src = "${url}">`;
+                display_image_url1.insertAdjacentHTML("beforeend", image1);                
+                if (i === 0) { imgTab0.push(image1); }
+                else if (i === 1) { imgTab1.push(image1); }
+                else if (i === 2) { imgTab2.push(image1); }
             } catch (err) {
                 console.log(err);
             }
@@ -420,73 +154,36 @@ async function getResponse(url1, url2, q_selector) {
 
     const promise2 = await fetch(url2);
     const response2 = await promise2.json();
-    console.log('Réponse2: ', response2);
-
-    for (let j = 0; j < 3; j++)
+    for (let j = 0; j < 2; j++)
         try {
             const url = response2["results"][j]["image_url"];   // id  movies x 2
-            console.log('url2: ' + j, url);
+            const next_url = response2["next"];
+            console.log("next:", next_url);
             try {
-                imgTab.push(url);
-                const display_image_url = document.querySelector(q_selector);
-                const image = `<img src = "${url}">`;
-                display_image_url.insertAdjacentHTML("beforeend", image);
+                const display_image_url2 = document.querySelector(q_selector);
+                const image2 = `<img src = "${url}">`;
+                display_image_url2.insertAdjacentHTML("beforeend", image2);                
+                if (i === 0) { imgTab0.push(image2); }
+                else if (i === 1) { imgTab1.push(image2); }
+                else if (i === 2) { imgTab2.push(image2); }
+                const display_next_url = document.querySelector(".switchRight");
+                display_next_url.innerHTML = next_url;
             } catch (err) {
                 console.log(err);
             }
         } catch (err) {
             console.log(err);
         }
-    console.log("tab: ", imgTab);
 }
 
-const Container0 = document.getElementsByClassName(".carouselbox0");
+const Container0 = document.getElementsByClassName(".carouselimg0");
 Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score",
-    "http://localhost:8000/api/v1/titles/?page=2&sort_by=-imdb_score", ".carouselimg0");
+    "http://localhost:8000/api/v1/titles/?page=2&sort_by=-imdb_score", ".carouselimg0", 0);
 
-const Container1 = document.getElementsByClassName(".carouselbox1");
+const Container1 = document.getElementsByClassName(".carouselimg1");
 Container0.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action",
-    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselimg1");
+    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Action&page=2", ".carouselimg1", 1);
 
-const Container2 = document.getElementsByClassName(".carouselbox2");
+const Container2 = document.getElementsByClassName(".carouselimg2");
 Container2.innerHTML = getResponse("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation",
-    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselimg2");
-     
-    
-
-
-/*
-const sliders = document.querySelector(".carouselimg");
-let scrollPerClick;
-let ImagePadding = 20;
-
-showMovieData();
-
-let scrollAmount = 0;
-
-function sliderScrollLeft() {
-    sliders.scrollTo({
-        top: 0,
-        left: (scrollAmount -= scrollPerClick),
-        behaviour: "smooth",
-    });
-    if (scrollAmount < 0) {
-        scrollAmount = 0;
-    }
-}
-
-function sliderScrollRight() {
-    if (scrollAmount <= sliders.scrollWidth - sliders.clientWidth) {
-        sliders.scrollTo({
-            top: 0,
-            left: (scrollAmount += scrollPerClick),
-            behaviour: "smooth",
-        });
-    }    
-};
-    
-
-
-
-scrollPerClick = document.querySelector(".img-1").clientWidth + imagePadding;
-*/
+    "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&genre=Animation&page=2", ".carouselimg2", 2);

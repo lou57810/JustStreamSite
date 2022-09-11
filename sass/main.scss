@@ -190,81 +190,77 @@ body {
     z-index: 5;
 }
 
-.carouselbox0 .switchLeft img {
+.carousel .switchLeft {    
+    padding-top: 80px;
+    height: 80px;    
+}
+
+.carousel .switchRight {    
     padding-top: 80px;    
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: red;
-    //line-height: 50px;
-    font-size: 10px;
+    height: 80px;
+}
+
+.carouselbox0 .switchLeft img {
+    padding-top: 10px;
+    padding-bottom: 10px;    
 }
 
 .carouselbox0 .switchRight img {
-    padding-top: 80px;    
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: green;
-    //line-height: 50px;
-    font-size: 10px;
+    margin-left: 30px;
+    margin-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .carouselbox1 .switchLeft img {
-    padding-top: 80px;
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: red;
-    //line-height: 250px;
-    font-size: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .carouselbox1 .switchRight img {
-    padding-top: 80px;
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: green;
-    //line-height: 250px;
-    font-size: 10px;
+    margin-left: 30px;
+    margin-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .carouselbox2 .switchLeft img {
-    padding-top: 80px;
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: red;
-    //line-height: 250px;
-    font-size: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .carouselbox2 .switchRight img {
-    padding-top: 80px;
-    padding-left: 10px;
-    font-weight: bold;
-    height: 30%;
-    width: 45px;
-    color: green;
-    //line-height: 250px;
-    font-size: 10px;
+    margin-left: 30px;
+    margin-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
+.carouselbox0 .switchLeft img:active {
+    background-color: orangered;
+}
+.carouselbox1 .switchLeft img:active {
+    background-color: orangered;
+}
+.carouselbox2 .switchLeft img:active {
+    background-color: orangered;
+}
 
+.carouselbox0 .switchRight img:active {
+    background-color: forestgreen;
+}
+.carouselbox1 .switchRight img:active {
+    background-color: forestgreen;
+}
+.carouselbox2 .switchRight img:active {
+    background-color: forestgreen;
+}
 //
-
-    header {        
-        height: 25vh;
-        width: 98%;
-        background-size: cover;
-        
-    }
+header {
+    height: 25vh;
+    width: 98%;
+    background-size: cover;
+}
 
 
     .navbar {
