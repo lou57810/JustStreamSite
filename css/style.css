@@ -20,228 +20,6 @@ body {
   background-color: white;
 }
 
-.carousel {
-  height: 60%;
-  width: 98%;
-  margin-left: 8%;
-}
-
-/*
-.carouselbox0 .switchLeft,
-.carouselbox0 .switchRight {
-    color: black;
-    font-weight:bold;
-    height: 100%;
-    line-height: 250px;
-    font-size: 25px;
-    text-align: center;
-    background-color: lightgreen;
-    font-family: Arial;
-    top: 0;
-    z-index: 3;
-}
-
-.carouselbox0 .switchLeft {
-    position: absolute;
-    left: -50px;
-}
-
-.carouselbox0 .switchRight {
-    position: absolute;
-    right: -50px;
-}
-
-.carouselbox1 .switchLeft,
-.carouselbox1 .switchRight {
-    color: gray;
-    font-weight: bold;
-    height: 100%;
-    line-height: 250px;
-    font-size: 25px;
-    text-align: center;
-    background-color: lightgreen;
-    font-family: Arial;
-    top: 0;
-    z-index: 3;
-}
-
-.carouselbox1 .switchLeft {
-    position: absolute;
-    left: -50px;
-}
-
-.carouselbox1 .switchRight {
-    position: absolute;
-    right: -50px;
-}
-
-.carouselbox2 .switchLeft,
-.carouselbox2 .switchRight {
-    color: gray;
-    font-weight: bold;
-    height: 100%;
-    line-height: 250px;
-    font-size: 25px;
-    text-align: center;
-    background-color: lightgreen;
-    font-family: Arial;
-    top: 0;
-    z-index: 3;
-}
-
-.carouselbox2 .switchLeft {
-    position: absolute;
-    left: -50px;
-}
-
-//.carouselbox2 .switchRight {
-//    position: absolute;
- //   right: -50px;
-//}
-*/
-.carouselbox0, .carouselbox1, .carouselbox2 {
-  height: 250px;
-  width: 90%;
-  display: inline-block;
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-}
-
-.carouselimg0, .carouselimg1, .carouselimg2 {
-  height: 250px;
-  width: 70%;
-  overflow: scroll;
-  white-space: nowrap;
-  display: inline-block;
-  display: flex;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-}
-
-.carouselimg0 img {
-  min-width: 147px;
-  max-width: 147px;
-  height: 200px;
-  background-size: cover;
-  background-color: lightgreen;
-  margin: 5px 10px;
-  cursor: pointer;
-  transition: 0.5s ease;
-  z-index: 2;
-}
-
-.carouselimg1 img {
-  min-width: 147px;
-  max-width: 147px;
-  height: 200px;
-  background-size: cover;
-  background-color: lightgreen;
-  margin: 5px 10px;
-  cursor: pointer;
-  transition: 0.5s ease;
-  z-index: 2;
-}
-
-.carouselimg2 img {
-  min-width: 147px;
-  max-width: 147px;
-  height: 200px;
-  background-size: cover;
-  background-color: lightgreen;
-  margin: 5px 10px;
-  cursor: pointer;
-  transition: 0.5s ease;
-  z-index: 2;
-}
-
-.carouselimg0 img:hover {
-  transform: scale(1.4);
-  z-index: 5;
-}
-
-.carouselimg1 img:hover {
-  transform: scale(1.4);
-  z-index: 5;
-}
-
-.carouselimg2 img:hover {
-  transform: scale(1.4);
-  z-index: 5;
-}
-
-.carousel .switchLeft {
-  padding-top: 80px;
-  height: 80px;
-}
-
-.carousel .switchRight {
-  padding-top: 80px;
-  height: 80px;
-}
-
-.carouselbox0 .switchLeft img {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox0 .switchRight img {
-  margin-left: 30px;
-  margin-right: 40px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox1 .switchLeft img {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox1 .switchRight img {
-  margin-left: 30px;
-  margin-right: 40px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox2 .switchLeft img {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox2 .switchRight img {
-  margin-left: 30px;
-  margin-right: 40px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.carouselbox0 .switchLeft img:active {
-  background-color: orangered;
-}
-
-.carouselbox1 .switchLeft img:active {
-  background-color: orangered;
-}
-
-.carouselbox2 .switchLeft img:active {
-  background-color: orangered;
-}
-
-.carouselbox0 .switchRight img:active {
-  background-color: forestgreen;
-}
-
-.carouselbox1 .switchRight img:active {
-  background-color: forestgreen;
-}
-
-.carouselbox2 .switchRight img:active {
-  background-color: forestgreen;
-}
-
 header {
   height: 25vh;
   width: 98%;
@@ -306,6 +84,370 @@ header {
   display: none;
 }
 
+.promo {
+  width: 98%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  background-color: #231f1f;
+  margin-bottom: 10px;
+}
+
+.promo p {
+  margin: 0px auto;
+  color: white;
+}
+
+.promo .img_promo {
+  margin: 20px;
+}
+
+.promo .description b {
+  margin-left: 40px;
+  font-size: 3em;
+  color: white;
+}
+
+.promo .description ul {
+  margin-left: 40px;
+  color: white;
+  font-size: 1.5em;
+}
+
+.promo .divers ul {
+  margin-left: 40px;
+  color: white;
+  font-size: 1.5em;
+}
+
+.promo .sujet {
+  margin-left: 40px;
+  width: 400px;
+  color: white;
+  font-size: 1em;
+}
+
+#img_jacket {
+  width: 200px;
+  height: 100px;
+}
+
+h2 {
+  height: 30px;
+}
+
+.carousel {
+  height: 60%;
+  width: 98%;
+  margin-left: 8%;
+}
+
+.carouselbox0, .carouselbox1, .carouselbox2, .carouselbox3 {
+  height: 250px;
+  width: 90%;
+  display: inline-block;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.carouselimg0, .carouselimg1, .carouselimg2, .carouselimg3 {
+  height: 250px;
+  width: 70%;
+  overflow: scroll;
+  white-space: nowrap;
+  display: inline-block;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+.carouselimg0 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  padding: 5px;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselimg1 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  padding: 5px;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselimg2 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  padding: 5px;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselimg3 img {
+  min-width: 147px;
+  max-width: 147px;
+  height: 200px;
+  background-size: cover;
+  background-color: lightgreen;
+  padding: 5px;
+  margin: 5px 10px;
+  cursor: pointer;
+  transition: 0.5s ease;
+  z-index: 2;
+}
+
+.carouselimg0 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carouselimg1 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carouselimg2 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carouselimg3 img:hover {
+  transform: scale(1.4);
+  z-index: 5;
+}
+
+.carousel .switchLeft {
+  padding-top: 80px;
+  height: 80px;
+}
+
+.carousel .switchRight {
+  padding-top: 80px;
+  height: 80px;
+}
+
+.carouselbox0 .switchLeft img {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox0 .switchRight img {
+  margin-left: 30px;
+  margin-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox1 .switchLeft img {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox1 .switchRight img {
+  margin-left: 30px;
+  margin-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox2 .switchLeft img {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox2 .switchRight img {
+  margin-left: 30px;
+  margin-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox3 .switchLeft img {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox3 .switchRight img {
+  margin-left: 30px;
+  margin-right: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.carouselbox0 .switchLeft img:active {
+  background-color: orangered;
+}
+
+.carouselbox1 .switchLeft img:active {
+  background-color: orangered;
+}
+
+.carouselbox2 .switchLeft img:active {
+  background-color: orangered;
+}
+
+.carouselbox3 .switchLeft img:active {
+  background-color: orangered;
+}
+
+.carouselbox0 .switchRight img:active {
+  background-color: forestgreen;
+}
+
+.carouselbox1 .switchRight img:active {
+  background-color: forestgreen;
+}
+
+.carouselbox2 .switchRight img:active {
+  background-color: forestgreen;
+}
+
+.carouselbox3 .switchRight img:active {
+  background-color: forestgreen;
+}
+
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal {
+  display: none;
+  width: 1400px;
+  height: 300px;
+  margin-top: 100px;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  background-color: #231f1f;
+  margin: 0 auto;
+}
+
+.modal-container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  width: 1350px;
+  height: 280px;
+}
+
+.img-container {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 150px;
+  height: 250px;
+}
+
+.img-container img {
+  margin-bottom: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*
+#prev-btn, #next-btn {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+#next-btn {
+    border-right: 40px solid grey;
+    right: -50%;
+}
+
+#prev-btn {
+    border-right: 40px solid grey;
+    left: -50px;
+}
+
+#next-btn:hover, #prev-btn:hover {
+    opacity: 0.6;
+}
+
+
+button {
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100px;
+    width: 130px;
+    background: thistle;
+    font-family:'lato';
+    font-size: 24px;
+}
+.modal {
+    display: none;
+    padding-bottom: 50px;
+    //position: fixed;
+    //display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 280px;
+    background-color: #1c1919;
+}
+
+.modal-content {
+    margin: 5% auto;
+    border: 1px solid #888;
+    width: 95%;
+    height: 260px;
+}
+
+.close {
+    color: #aaa;
+    position: relative;
+    float: right;
+    cursor: pointer;
+    font-size: 50px;
+    padding: 0 10px 0 0;
+    font-weight: bold;
+}
+*/
 /*
 @media screen and (max-width: 900px) {
     .navbar {
@@ -430,56 +572,5 @@ header {
     }
 }
 */
-.promo {
-  width: 98%;
-  height: 30%;
-  display: flex;
-  align-items: center;
-  background-color: #231f1f;
-  margin: 0 auto;
-}
-
-.promo p {
-  margin: 0px auto;
-  color: white;
-}
-
-.promo .img {
-  margin: 20px;
-}
-
-.promo .description b {
-  margin-left: 40px;
-  font-size: 3em;
-  color: white;
-}
-
-.promo .description ul {
-  margin-left: 40px;
-  color: white;
-  font-size: 1.5em;
-}
-
-.promo .divers ul {
-  margin-left: 40px;
-  color: white;
-  font-size: 1.5em;
-}
-
-.promo .sujet {
-  margin-left: 40px;
-  width: 400px;
-  color: white;
-  font-size: 1em;
-}
-
-#img_jacket {
-  width: 200px;
-  height: 100px;
-}
-
-h2 {
-  height: 30px;
-}
 
 /*# sourceMappingURL=style.css.map */
