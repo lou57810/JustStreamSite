@@ -358,51 +358,65 @@ h2 {
 
     
     // ========================================= Modale ======================================
-.modal {
-    display: none;
-    width: 1400px;
-    height: 300px;
-    margin-top: 100px;
+section {
+    position: absolute;
     display: flex;
+    height: 420px;    
+}
+
+.modal-container {
+    top: 50%;
+    position: fixed;
+    opacity: 0;
+    background-color: #231f1f;
+    display: none;    
+    margin: auto;
+    padding: 10px;
+    width: 1350px;
+    height: 400px;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.modal-container { // .show
+    pointer-events: auto;
+    opacity: 1;
+}
+
+
+
+.modal {
+    // display: none;
+    width: 1300px;
+    height: 240px;
+    margin-top: 100px;    
     padding: 20px;
     align-items: center;
     background-color: #231f1f;
     margin: 0 auto;
 }
 
-.modal-container  {    
-    display: flex;
+.img-container {    
     margin-top: 10px;
     margin-left: 10px;
-    padding: 10px;
-    width: 1350px;
-    height: 280px;   
-}
-
-.img-container {
-    margin-top: 10px;
-    margin-left: 10px;
-    
     width: 150px;
     height: 250px;
 }
 
-.img-container img {
-    
+.img-container img {    
     margin-bottom: 20px;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover, .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+button {
+    height: 40px;
+    background-color:#47a386;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 25px;
+    box-shadow: 0 2px 4px orangered;
+    font-size: 16px;
+    
 }
 
 

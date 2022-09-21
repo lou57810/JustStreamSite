@@ -1,0 +1,12 @@
+{
+  "name": "webnet1",
+  "version": "1.0.0",
+  "description": "Openclassroom project.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ./sass/main.scss:./css/style.css"
+  },
+  "author": "ben",
+  "license": "UNLICENSED"
+}

@@ -3,20 +3,12 @@ let Url = "http://localhost:8000/api/v1/titles/";
 let param1 = '?sort_by=-imdb_score';
 let param2 = '&page=2';
 let paramCat = ['', '&genre=Action', '&genre=Animation', '&genre=Adventure'];
+let scrollPerClick;
 
 imgTab0 = [];
 imgTab1 = [];
 imgTab2 = [];
 imgTab3 = [];
-
-class MovieData {
-    constructor(id, url, title, imgUrl) {
-        this.id = id;
-        this.url = url;
-        this.title = title;
-        this.imgUrl = imgUrl;
-    }
-}
 
 // =====================Le Meilleur score================
     const promise00 = fetch(Url + param1);
@@ -86,53 +78,123 @@ class MovieData {
             console.log(err);
         }
     })
+// ======================= Scrolling ==================================
 
-createContainers();
+let scrollAmount = 0;
+let ImagePadding = 20;
+scrollPerClick = document.querySelector("img").clientWidth + ImagePadding;
 
-
-
-async function getDataMovie(url, j) {
-    const promise = await fetch(url);
-    const response = await promise.json();
-    
-    const moviedata0 = new MovieData(response["id"], response["url"], response["title"], response["image_url"]);
-    console.log('md: ', moviedata0);
+function sliderScrollLeft(event) {
+    const sliders = document.querySelector('.carouselbox0');
+    sliders.scrollTo({
+        top: 0,
+        left: (scrollAmount -= scrollPerClick),
+        behavior: "smooth"        
+    });
+    if (scrollAmount < 0) {
+        scrollAmount = 0
+    }    
 }
 
-const moviedata0 = new MovieData
+function sliderScrollRight(event) {
+    const sliders = document.querySelector('.carouselbox0');
+    if (scrollAmount <= sliders.scrollWidth - sliders.clientWidth) {
+        sliders.scrollTo({
+            top: 0,
+            left: (scrollAmount += scrollPerClick),
+            behavior: "smooth"            
+        });
+    }    
+}
 
-async function getResponse(url1, url2, i) {     // 4x index containers    
-    const promise1 = await fetch(url1);
+// ============ Création classe datas films =============
+
+class MovieData {
+    constructor(id, url, title, image_url, genres, date_published,
+        rated, imdb_score, directors, actors,
+        duration, countries, worldwide_gross_income,
+        description) {
+        this.id = id;
+        this.url = url;
+        this.title = title;
+        this.image_url = image_url;        
+        this.genres = genres;
+        this.date_published = date_published;
+        this.rated = rated;
+        this.imdb_score = imdb_score;
+        this.directors = directors;
+        this.actors = actors;
+        this.duration = duration;
+        this.countries = countries;
+        this.worldwide_gross_income = worldwide_gross_income;
+        this.description = description;        
+    }
+}
+
+async function getDataMovie(url) {
+    const promise1 = await fetch(url);
     const response1 = await promise1.json();
-    for (let j = 0; j < 5; j++)       
-        try {            
-            const imgUrl1 = response1["results"][j]["image_url"];   // id  movies x 2
-            const imgUrl = response1["results"][j]["url"];
-            getDataMovie(imgUrl, j);
-            
-            try {
-                displayImgArrays(i, imgUrl1);               
-            } catch (err) {
-                console.log(err);
-            }
-        } catch (err) {
-            console.log(err);
-        }
+    
+    const moviedata = new MovieData(response1["id"], response1["url"],
+        response1["title"], response1["image_url"],  response1["genres"],
+        response1["date_published"], response1["rated"], response1["imdb_score"],
+        response1["directors"], response1["actors"], response1["duration"],
+        response1["countries"], response1["worldwide_gross_income"],
+        response1["description"]);
+    
+    return moviedata;
+}
 
-    const promise2 = await fetch(url2);
-    const response2 = await promise2.json();
-    for (let j = 0; j < 2; j++)
-        try {
-            const imgUrl2 = response2["results"][j]["image_url"];            
-            try {                
-                displayImgArrays(i, imgUrl2);
+// ========================= Appel fonction création Dom carousel =========================
+createContainers();
+
+// =========================================================================================
+let promise = [];
+let response = [];
+let imgUrl = [];
+
+async function getResponse(url1, url2, i) {
+    let sliderStock = [];   // Array for imgTab0 -> imgTab3
+    async function displayUrl(url) {
+        const promise = await fetch(url);
+        const response = await promise.json();
+        for (let j = 0; j < 5; j++) {
+            try {
+                const imgUrl = response["results"][j]["image_url"];   
+                const movieUrl = response["results"][j]["url"];
+                moviedata = await getDataMovie(movieUrl);
+                
+                try {
+                    if (i == 0) {
+                        imgTab0.push(moviedata["image_url"]);
+                        sliderStock.push(imgTab0);
+                        }
+                    else if (i == 1) {
+                        imgTab1.push(moviedata["image_url"]);
+                        sliderStock.push(imgTab1);
+                        }
+                    else if (i == 2) {
+                        imgTab2.push(moviedata["image_url"]);
+                        sliderStock.push(imgTab2);
+                        }
+                    else if (i == 3) {
+                        imgTab3.push(moviedata["image_url"]);
+                        sliderStock.push(imgTab3);
+                        } 
+                } catch (err) {
+                    console.log(err);
+                }
             } catch (err) {
                 console.log(err);
             }
-        } catch (err) {
-            console.log(err);
         }
-    //console.log('promise', response1["results"]);
+    }
+    await displayUrl(url1);
+    await displayUrl(url2);
+    for (let j = 0; j < 10; j++) {
+        displayImgArrays(i, sliderStock[i][j]);
+    }
+    console.log('sliderStock', sliderStock[i]);
 }
 
 let Container = [];
@@ -142,19 +204,13 @@ for (let i = 0; i < 4; i++) {
     Container[i] = document.getElementsByClassName(".carouselimg" + i);
     Container[i].innerHTML = getResponse(Url + param1 + paramCat[i], Url + param1 + paramCat[i] + param2, i);
 }
+
+function getTaB() {}
     
-function displayImgArrays(selector, url) {    
-    // selector = i ==>.carouselimg i
-    if (selector == 0) { imgTab0.push(url) }
-    else if (selector == 1) { imgTab1.push(url) }
-    else if (selector == 2) { imgTab2.push(url) }
-    else if (selector == 3) { imgTab3.push(url) };        
-        
-            
-    displayUrlArray = document.querySelector('.carouselimg' + selector);
-    
-    const images = `<img src = "${url}" onclick="imgModal(this)">`;
-    
+async function displayImgArrays(selector, url) {    
+    // selector = i ==>.carouselimg i            
+    displayUrlArray = document.querySelector('.carouselimg' + selector);    
+    const images = `<img src = "${url}" onclick="imgModal(this)">`;    
     displayUrlArray.insertAdjacentHTML("beforeend", images);    
 }
 
@@ -163,19 +219,20 @@ function displayImgArrays(selector, url) {
 let modal = document.getElementById('myModal');
 
 function imgModal(img) {
+    modal_container.style.display = 'block';
     let url = img.src;
     const DivModal = document.querySelector(".img-container");
     const imgModal = document.createElement("img");
     imgModal.setAttribute("src", url);
-    DivModal.appendChild(imgModal);
-    //modal.style.visibility = (modal.style.visibility == "visible") ? "hidden" : "visible";    
-    //modal.style.transform = "scale(2.5)";
-    //body.onclick = function (event) {
-        //if (event.target == modal) {
-            //modal.sytle.display = "none";
-        //}
-    //}
+    DivModal.appendChild(imgModal);    
 }
+
+const modal_container = document.getElementById('modal_container');
+const close = document.getElementById('close');
+
+close.addEventListener('click', () => {
+    modal_container.style.display = 'none';
+});
 
 //====================== Création de 4 sliders vides ========================
 
@@ -189,10 +246,11 @@ function createContainers() {
 
         let switchLeft = document.createElement("div");
         switchLeft.classList.add("switchLeft");
-        newDivMain.appendChild(switchLeft);
+        newDivMain.appendChild(switchLeft);        
 
         let chevronL = document.createElement("img");
-        chevronL.src = "fonts/left.png";                
+        chevronL.src = "fonts/left.png";
+        chevronL.setAttribute('onclick', sliderScrollLeft(event));
         switchLeft.appendChild(chevronL);
 
         const newDivImg = document.createElement("div");
@@ -202,20 +260,16 @@ function createContainers() {
         let switchRight = document.createElement("div");
         switchRight.classList.add("switchRight");
         newDivMain.appendChild(switchRight);
-        //next_url = document.getElementsByClassName("input").value;  ////?????
+        
         let chevronR = document.createElement("img");
         chevronR.src = "fonts/right.png";
-        //chevronR.addEventListener("click", alertMeR(next_url));        
+        chevronR.setAttribute('onclick', sliderScrollRight(event));                
         switchRight.appendChild(chevronR);
     }
 }
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-    modal.style.display = "none";
-}
-        
-// Clicking anywher outside of the modal close it.
+
+
+
+
