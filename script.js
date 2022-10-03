@@ -5,6 +5,7 @@ let param2 = '&page=2';
 let paramCat = ['', '&genre=Action', '&genre=Animation', '&genre=Adventure'];
 let scrollPerClick;
 
+// imgTab = [];
 imgTab0 = [];
 imgTab1 = [];
 imgTab2 = [];
@@ -78,34 +79,6 @@ imgTab3 = [];
             console.log(err);
         }
     })
-// ======================= Scrolling ==================================
-
-let scrollAmount = 0;
-let ImagePadding = 20;
-scrollPerClick = document.querySelector("img").clientWidth + ImagePadding;
-
-function sliderScrollLeft(event) {
-    const sliders = document.querySelector('.carouselbox0');
-    sliders.scrollTo({
-        top: 0,
-        left: (scrollAmount -= scrollPerClick),
-        behavior: "smooth"        
-    });
-    if (scrollAmount < 0) {
-        scrollAmount = 0
-    }    
-}
-
-function sliderScrollRight(event) {
-    const sliders = document.querySelector('.carouselbox0');
-    if (scrollAmount <= sliders.scrollWidth - sliders.clientWidth) {
-        sliders.scrollTo({
-            top: 0,
-            left: (scrollAmount += scrollPerClick),
-            behavior: "smooth"            
-        });
-    }    
-}
 
 // ============ Création classe datas films =============
 
@@ -146,127 +119,189 @@ async function getDataMovie(url) {
 }
 
 // ========================= Appel fonction création Dom carousel =========================
-createContainers();
+
+displayAllCarousels();
 
 // =========================================================================================
 let promise = [];
 let response = [];
 let imgUrl = [];
+let nbSlides = 4;
+let nbUrls = 10;
+let step = 1;       // Pas:  decalage de 1
+let speed = 10;     // Vitesse decalage
+let distance = 1200;
+let direction = "";
+let sliderStock = [imgTab0, imgTab1, imgTab2, imgTab3]; // Array of Array for row imgTab 0,1,2,3
+let Pos = [0, 0, 0, 0];
 
-async function getResponse(url1, url2, i) {
-    let sliderStock = [];   // Array for imgTab0 -> imgTab3
+// Slider Containers Creation
+for (let i = 0; i < 4; i++) {
+    createContainers(i);
+}
+
+async function getResponse(url1, url2, i, z) {                        // i = selector,  z = next / previous    
+                                                                      
     async function displayUrl(url) {
         const promise = await fetch(url);
         const response = await promise.json();
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < 5; j++) {                                  // 5 x movies / pages
             try {
-                const imgUrl = response["results"][j]["image_url"];   
-                const movieUrl = response["results"][j]["url"];
-                moviedata = await getDataMovie(movieUrl);
+                //const imgUrl = response["results"][j]["image_url"];    // url image x 5 x 2    (url1, url2)                
+                const movieUrl = response["results"][j]["url"];        // url film  x 5 x 2     (url1, url2)
                 
-                try {
-                    if (i == 0) {
-                        imgTab0.push(moviedata["image_url"]);
-                        sliderStock.push(imgTab0);
-                        }
-                    else if (i == 1) {
-                        imgTab1.push(moviedata["image_url"]);
-                        sliderStock.push(imgTab1);
-                        }
-                    else if (i == 2) {
-                        imgTab2.push(moviedata["image_url"]);
-                        sliderStock.push(imgTab2);
-                        }
-                    else if (i == 3) {
-                        imgTab3.push(moviedata["image_url"]);
-                        sliderStock.push(imgTab3);
-                        } 
-                } catch (err) {
-                    console.log(err);
-                }
+                moviedata = await getDataMovie(movieUrl);                
+                
+                //if (z == 0) {
+                    
+                    try {
+                        sliderStock[i].push(moviedata["image_url"]);
+                    } catch (err) { console.log(err); }
+                //}                
             } catch (err) {
                 console.log(err);
             }
         }
     }
-    await displayUrl(url1);
+    await displayUrl(url1);    
     await displayUrl(url2);
-    for (let j = 0; j < 10; j++) {
-        displayImgArrays(i, sliderStock[i][j]);
+    
+    if (z == 0) {
+        for (let j = 0; j < nbSlides; j++) {            // [i] tab[10 movie] [j] movie[j] (0 ou 1...);
+            displayImgArrays(i, sliderStock[i][j]);     //  (i, sliderStock[i][j], step_switches +-) i=row j=nbSlides, step+- = step)
+            console.log("Pos[i]", Pos[i], 'j', j);
+        }
     }
-    console.log('sliderStock', sliderStock[i]);
+    // ==================== Arrows ========================
+    else {
+        let carouselContainer = document.getElementsByClassName('carouselimg' + i)[0];        
+        carouselContainer.textContent = '';
+        
+        for (let j = Pos[i]; j < nbSlides + Pos[i]; j++) {
+            console.log('Pos[i]:', Pos[i]);
+            console.log('j:', j);
+            if (direction === 'right') {
+                if (j <= 0) {   // (j <= 0)
+                    j = j - nbSlides;
+                }
+            }
+            else if (Pos[i] < 0) {            
+                Pos[i] += nbUrls;                    
+                j = Pos[i];
+                console.log('j:', j);
+                console.log('Pos[i]:', Pos[i]);
+            }            
+            displayImgArrays(i, sliderStock[i][j % 10]);
+        }               
+    }
+    // ======================================================
 }
 
-let Container = [];
 
-for (let i = 0; i < 4; i++) {
+
+// Affichage DOM et appel Modale
+async function displayImgArrays(selector, url) {
+    // selector = i ==>.carouselimg i            
+    displayUrlArray = document.querySelector('.carouselimg' + selector);
+    const images = `<img src = "${url}" id = "${selector}" onclick="imgModal(this)">`;    
+    displayUrlArray.insertAdjacentHTML("beforeend", images);
+}
+
+function displayAllCarousels() {                
+    let Container = [];
+    let z = 0;
+    for (let i = 0; i < 4; i++) {               // i = row
+        Container.push('Container' + i);
+        Container[i] = document.getElementsByClassName(".carouselimg" + i);
+        Container[i].innerHTML = getResponse(Url + param1 + paramCat[i], Url + param1 + paramCat[i] + param2, i, z);
+    }
+}
+
+function displayOneCarousel(i, z) {             // z: direction "left" ou "right" ('L' / 'R')   
+    let Container = [];
     Container.push('Container' + i);
     Container[i] = document.getElementsByClassName(".carouselimg" + i);
-    Container[i].innerHTML = getResponse(Url + param1 + paramCat[i], Url + param1 + paramCat[i] + param2, i);
-}
-
-function getTaB() {}
-    
-async function displayImgArrays(selector, url) {    
-    // selector = i ==>.carouselimg i            
-    displayUrlArray = document.querySelector('.carouselimg' + selector);    
-    const images = `<img src = "${url}" onclick="imgModal(this)">`;    
-    displayUrlArray.insertAdjacentHTML("beforeend", images);    
+    Container[i].innerHTML = getResponse(Url + param1 + paramCat[i], Url + param1 + paramCat[i] + param2, i, z);
 }
 
 // ======================== Modal =================================
 
 let modal = document.getElementById('myModal');
 
-function imgModal(img) {
+function imgModal(img, url) {
     modal_container.style.display = 'block';
-    let url = img.src;
-    const DivModal = document.querySelector(".img-container");
+    // IMG
+    url = img.src;
+    const DivModalImg = document.querySelector(".img-container");
     const imgModal = document.createElement("img");
     imgModal.setAttribute("src", url);
-    DivModal.appendChild(imgModal);    
+    DivModalImg.appendChild(imgModal);
+
+   // Movie Datas
+    const DivMovieDatas = document.querySelector(".description");
+    let ul = document.createElement('ul');
+
+    DivMovieDatas.appendChild(ul);    
+
+    for (let i = 0; i < moviedata.length; i++) {
+        let li = document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML = li.innerHTML + moviedata[i];
+    }
 }
 
-const modal_container = document.getElementById('modal_container');
 const close = document.getElementById('close');
-
 close.addEventListener('click', () => {
     modal_container.style.display = 'none';
 });
 
 //====================== Création de 4 sliders vides ========================
 
-function createContainers() {
+function createContainers(i) {
+    
     const DivContainer = document.querySelector(".carousel");
-    for (let i= 0; i < 4; i++) {
+    
+    const newDivMain = document.createElement("div");
+    DivContainer.appendChild(newDivMain);
+    newDivMain.classList.add('carouselbox' + i);
+    
+    let chevronL = document.createElement("div");    
+    img = document.createElement('img');
+    img.setAttribute("id", "imgL" + i);
+    img.setAttribute("src", "fonts/left.png");
+    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
+        let str = e.target.id;
+        Pos[i] -= 1;                                // imgL1
+        direction = 'left';
+        displayOneCarousel(str[4], str[3]);        
+        });
+    
+    chevronL.appendChild(img);        
+    newDivMain.appendChild(chevronL);
 
-        const newDivMain = document.createElement("div");
-        DivContainer.appendChild(newDivMain);
-        newDivMain.classList.add('carouselbox' + i);
-
-        let switchLeft = document.createElement("div");
-        switchLeft.classList.add("switchLeft");
-        newDivMain.appendChild(switchLeft);        
-
-        let chevronL = document.createElement("img");
-        chevronL.src = "fonts/left.png";
-        chevronL.setAttribute('onclick', sliderScrollLeft(event));
-        switchLeft.appendChild(chevronL);
-
-        const newDivImg = document.createElement("div");
-        newDivImg.classList.add('carouselimg' + i);
-        newDivMain.appendChild(newDivImg);
-
-        let switchRight = document.createElement("div");
-        switchRight.classList.add("switchRight");
-        newDivMain.appendChild(switchRight);
-        
-        let chevronR = document.createElement("img");
-        chevronR.src = "fonts/right.png";
-        chevronR.setAttribute('onclick', sliderScrollRight(event));                
-        switchRight.appendChild(chevronR);
-    }
+    const newDivImg = document.createElement("div");
+    newDivImg.classList.add('carouselimg' + i);
+    newDivMain.appendChild(newDivImg);
+    
+    let chevronR = document.createElement("div");    
+    img = document.createElement('img');
+    img.setAttribute("id", "imgR" + i);
+    img.setAttribute("src", "fonts/right.png");
+    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
+        let str = e.target.id;
+        Pos[i] += 1;                                // imgL1
+        direction = 'right';
+        displayOneCarousel(str[4], str[3]);        
+    });
+    chevronR.appendChild(img);
+    newDivMain.appendChild(chevronR);   
 }
+
+
+    
+
+
+
 
 
 
