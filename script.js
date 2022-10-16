@@ -44,12 +44,6 @@ let response = [];
         }
     })
 
-
-
-
-
-
-
 // ============ Création classe datas films =============
 
 class MovieAllDatas {
@@ -106,6 +100,17 @@ async function getMovieData(url) {
 
 // Variables
 let nbImgUrl = 24;
+let nbPages = Math.floor(nbImgUrl / 5) + 1;
+let reste = nbImgUrl % 5;
+/*
+if (nbImgUrl % 5 >= 0) {
+    let nbPages = Math.floor(nbImgUrl / 5) + 1;
+    let reste = nbImgUrl % 5;
+}
+else {
+    nbPages = nbImgUrl / 5
+}
+*/
 let Pos = [0, 0, 0, 0];       // origin cursors = 0
 let temp = [];
 let movieData = [[], [], [], []];
@@ -113,29 +118,28 @@ let movieDataTest = [[], [], [], []];
 let nextUrl = '';
 let url = '';
 
-async function getResponse(url, i, nbImgUrl) {            // 4 x  
-    await displayUrl(url, i, nbImgUrl);                   // 20 resultats
-    //await displayPages(url, i, nbImgUrl);
+async function getResponse(url, i, nbImgUrl) {           // 4 x 
+    await getUrls(url, i, nbImgUrl);
     let carouselContainer = document.getElementsByClassName('carouselimg' + i)[0];
     carouselContainer.textContent = '';
 }
 
 async function generateData() {
-    for (let i = 0; i < 4; i++) {
-        // displayOneCarousel(i, nbImgUrl);
-        await getResponse(Url + param1 + paramCat[i], i, nbImgUrl); // Url + sort + catégory
+    for (let i = 0; i < 4; i++) {        
+        await getResponse(Url + param1 + paramCat[i], i, nbImgUrl); // Url + sort + category
     }
 }
-
-function displayImgArrays(i, movieData, j = 0) {
-    //console.log('movieDataDisplay:', i, j, movieData[i][j]['url']);
-
+ // Affichage Images dans index.html
+function displayImgArrays(i, movieData, j = 0) {    
     displayUrlArray = document.querySelector('.carouselimg' + i);
     const images = `<img src = "${movieData[i][j]['url']}" id = "${i}" onclick="displayDatasModal(this)">`;
     displayUrlArray.insertAdjacentHTML("beforeend", images);
 }
 
+// Défilement arrows
 function displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData) {
+    let carouselContainer = document.getElementsByClassName('carouselimg' + i)[0];
+    carouselContainer.textContent = '';
     for (let j = Pos[i]; j < nbSlides + Pos[i]; j++) {
         if (Pos[i] >= 0) {
             displayImgArrays(i, movieData, j % nbImgUrl);
@@ -153,79 +157,59 @@ function displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData) {
     //console.log('Pos[i]:', Pos[i]);
     //}
 }
+let urlPages = [[], [], [], []];
+// Création du container du nombre de jaquettes disponibles: nbImgUrl
+async function getUrls(url, i, nbImgUrl) {
+    let nbPages = Math.floor(nbImgUrl / 5) + 1;
+    async function next(url, i) {
+        const promise = await fetch(url);
+        const response = await promise.json();            // url0
+        
+        nextUrl = response["next"];
+        //console.log('next', url);
+        return nextUrl;
+    }
+    urlPages[i].push(url);
+    for (let j = 0; j < nbPages; j++) {
+        url = await next(url, i);
+        urlPages[i].push(url);
+    }
+    console.log('urlPages0:', urlPages[i][0]);
+    // nbPages
+    for (let k = 0; k < nbPages; k++) {
+        let promise = await fetch(urlPages[i][k]);
+        let response = await promise.json();
+        if (k < nbPages - 1) {
+
+            for (let j = 0; j < 5; j++) {                   // 5 x movies / pages
+                try {
+                    const movieUrl = response["results"][j]["url"];
+                    temp = await getMovieData(movieUrl);
+
+                    movieData[i].push(temp);
+                    console.log('movieData[i]:', movieData[i]);                    
+                } catch (err) { console.log(err); }
+            }
+        }
+        else {
+            for (let j = 0; j < nbImgUrl % 5; j++) {                   // 5 x movies / pages
+                try {
+                    const movieUrl = response["results"][j]["url"];
+                    temp = await getMovieData(movieUrl);
+
+                    movieData[i].push(temp);
+                    console.log('movieData[i]:', movieData[i]);                    
+                } catch (err) { console.log(err); }
+            }
+        }
+    }
+}
 
 Promise.all([generateData()]).then (() => { 
-    for (let i = 0; i < 4; i++) {
-        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);
+    for (let i = 0; i < 4; i++) {        
+        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);        
     }
 })
-
-
-// (nbImgUrl % 5 = 2)
-// console.log('divEntiere:', Math.floor(nbImgUrl / 5));
-/*
-async function displayPages(url, i, nbImgUrl) {
-    
-    let nbPages = Math.floor(nbImgUrl / 5);
-    let reste = nbImgUrl % 5;
-    
-    for (let k = 0; k < nbPages; k++) {
-        //let ('nextUrl') + i;
-        const promise0 = await fetch(url);
-        const response0 = await promise0.json();
-        ('nextUrl') + k == response0[('nextUrl') + k];
-        console.log('nextUrl' + k, response["next"]);
-        const promise1 = await fetch(('nextUrl') + k);
-        const response1 = await promise1.json();
-        
-        for (let j = 0; j < 5; j++) {                   // 5 x movies / pages
-            try {
-                const movieUrl = response1["results"][j][('nextUrl') + k];
-                temp = await getMovieData(movieUrl);
-
-                movieDataTest[i].push(temp);
-
-                /*try {
-                    dataUrls[i].push(Object.values(moviedata[i]));
-                    
-                } catch (err) { console.log(err); }
-             */
-/*
-            } catch (err) { console.log(err); }
-        }
-    }
-}
-console.log('movieDataTest', movieDataTest);
-//displayPages(url, nbImgUrl);
-*/
-// ==================================== Promises =============================================
-
-async function displayUrl(url, i, nbImgUrl) {  // called 4x    
-    
-    const promise = await fetch(url);
-    const response = await promise.json();              // url
-   // nextUrl = response["next"];                       // url next
-    // boucle globale
-        for (let j = 0; j < 5; j++) {                   // 5 x movies / pages
-            try {
-                const movieUrl = response["results"][j]["url"];
-                temp = await getMovieData(movieUrl);
-
-                movieData[i].push(temp);
-
-                /*try {
-                    dataUrls[i].push(Object.values(moviedata[i]));
-                    
-                } catch (err) { console.log(err); }
-                */
-            } catch (err) { console.log(err); }
-        }
-        // object id:, url:, title:, img_url: ...)
-
-        //console.log('movieData0:', movieData[i]);               // 4x movieData[0];
-        // Condition de sortie
-}
-
 
 // =============================== Affichage carrousel ==============================
 
@@ -270,7 +254,6 @@ const close = document.getElementById('close');
 close.addEventListener('click', () => {
     modal_container.style.display = 'none';
     imgModal = "";
-    
 });
 
 //====================== Création Page HTML/DOM ========================
@@ -291,7 +274,7 @@ function createContainers(i) {
     img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
         let str = e.target.id;
         Pos[i] -= 1;                                // imgL1         
-        //displayOneCarousel(str[4]);        
+        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);
     });
     
     chevronL.appendChild(img);        
@@ -306,10 +289,11 @@ function createContainers(i) {
     img.setAttribute("id", "imgR" + i);
     img.setAttribute("src", "fonts/right.png");
 
-    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)        
-        let str = e.target.id;      // imgL1       L='left' i = 1(str[4])        
-        Pos[i] += 1;        
-        //displayOneCarousel(str[4]);                
+    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgR1" src="fonts/right.png">)        
+        let str = e.target.id;      // imgR1       R='right' i = 1(str[4])        
+        Pos[i] += 1;
+        
+        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);
     });
 
     chevronR.appendChild(img);
