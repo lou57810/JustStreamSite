@@ -41,11 +41,12 @@ header {
         position: absolute;
         padding: 20px 20px 20px 20px;
         width: 98%;
-        height: 20%;
+        height: 150px;
         display: flex;
         justify-content: space-between;
         box-sizing: border-box;
         background-color: #525050;
+        margin-bottom: 150px;
     }
 
     .navbar a {
@@ -98,10 +99,11 @@ header {
 
 .promo {    
     width: 98%;
-    height: 30%;
+    height: 300px;
     display: flex;
     align-items: center;
     background-color: #231f1f;
+    margin-top: 120px;
     margin-bottom: 10px;    
     //margin: 0 auto;
 }
