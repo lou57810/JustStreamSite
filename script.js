@@ -261,11 +261,20 @@ Close.addEventListener('click', () => {
 //====================== Création Page HTML/DOM ========================
 
 function createContainers(i) {
+    let movieTab = ['Films les mieux not\u00e9s', 'Cat\u00e9gorie1', 'Cat\u00e9gorie2', 'Cat\u00e9gorie3'];
     const DivContainer = document.querySelector(".carousel");
     
     const newDivMain = document.createElement("div");
+    const rowId = document.createElement("div");
+    DivContainer.appendChild(rowId);
     DivContainer.appendChild(newDivMain);
+    rowId.classList.add('rowId' + i);
     newDivMain.classList.add('carouselbox' + i);
+    rowId.innerHTML = movieTab[i];
+    //console.log('mm:', movieTab[i]);
+    
+    
+
     
     let chevronL = document.createElement("div");    
     img = document.createElement('img');
