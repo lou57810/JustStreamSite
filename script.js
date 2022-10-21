@@ -11,7 +11,6 @@ let response = [];
     const promise00 = fetch(Url + param1);
     promise00.then(async (responseData) => {
         const response = await responseData.json();
-        
 
         try {
             const id = response["results"][0]["id"];
@@ -99,8 +98,9 @@ async function getMovieData(url) {
 // ======================== Promise & display Carousel ============================
 
 // Variables
-let nbImgUrl = 6;
+let nbImgUrl = 7;
 let nbPages = Math.floor(nbImgUrl / 5) + 1;
+let nbSlides = 4;
 
 let Pos = [0, 0, 0, 0];       // origin cursors = 0
 let temp = [];
@@ -126,49 +126,28 @@ async function generateData() {
 function displayImgArrays(i, movieData, j = 0) {
     displayUrlArray = document.querySelector('.carouselimg' + i);
     const images = `<img src = "${movieData[i][j]['url']}" id = "${i}" onclick="displayDataModal(this, movieData, ${i}, ${j})">`;
+    //const images = `<img src = "${movieData[i][j]['url']}" id = "${i}" onclick="displayDataModal(this, "${movieData[i][j]['id']}")">`;
     displayUrlArray.insertAdjacentHTML("beforeend", images);
 }
 
-let urlPages = [[], [], [], []];
+
 // Création du container d'urls correspondant au nombre de jaquettes disponibles (prédéfinies avec nbImgUrl)
-async function getUrls(url, i, nbImgUrl) {
-    let nbPages = Math.floor(nbImgUrl / 5) + 1;
-    async function next(url, i) {
-        const promise = await fetch(url);
-        const response = await promise.json();            // url0
-        
-        nextUrl = response["next"];        
-        return nextUrl;
-    }
-    urlPages[i].push(url);
-    for (let j = 0; j < nbPages; j++) {
-        url = await next(url, i);
-        urlPages[i].push(url);
-    }    
-    // nbPages
+async function getUrls(url, i, nbImgUrl) {        
+    
     for (let k = 0; k < nbPages; k++) {
-        let promise = await fetch(urlPages[i][k]);
+        let promise = await fetch(url);        
         let response = await promise.json();
-        if (k < nbPages - 1) {
+        url = response["next"];
 
-            for (let j = 0; j < 5; j++) {                   // 5 x movies / pages
-                try {
-                    const movieUrl = response["results"][j]["url"];
-                    temp = await getMovieData(movieUrl);
+        for (let j = 0; j < 5; j++) {                   // 5 x movies / pages
+            try {
+                const movieUrl = response["results"][j]["url"];
+                temp = await getMovieData(movieUrl);
 
-                    movieData[i].push(temp);                                        
-                } catch (err) { console.log(err); }
-            }
-        }
-        else {
-            for (let j = 0; j < nbImgUrl % 5; j++) {                   // 5 x movies / pages
-                try {
-                    const movieUrl = response["results"][j]["url"];
-                    temp = await getMovieData(movieUrl);
-
-                    movieData[i].push(temp);                                        
-                } catch (err) { console.log(err); }
-            }
+                movieData[i].push(temp);
+                if (movieData[i].length >= nbImgUrl)
+                    break;
+            } catch (err) { console.log(err); }
         }
     }
 }
@@ -180,13 +159,18 @@ function displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData) {
     for (let j = Pos[i]; j < nbSlides + Pos[i]; j++) {
         if (Pos[i] >= 0) {
             displayImgArrays(i, movieData, j % nbImgUrl);
+            // console.log('Pos[i]:', Pos[i], 'i:', i, 'j:', j);
         }
+        else {
+            Pos[i] = Pos[i] + nbImgUrl;
+            j = Pos[i] -1;
+        }    
     }
 }
 
 Promise.all([generateData()]).then (() => { 
     for (let i = 0; i < 4; i++) {        
-        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);        
+        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);                
     }
 })
 
@@ -199,116 +183,80 @@ for (let i = 0; i < 4; i++) {
 
 // ===================================== Modal =======================================
 
-let modal = document.getElementById('myModal');
+let modal = document.getElementById('modal');
 let modalData = [];
 async function displayDataModal(img, movieData, i, j) {    
-    modal_container.style.display = 'block';
+//async function displayDataModal(img, movieDataId) {    
+    modal.style.display = 'block';
     // IMG
-    console.log('moviedataUrlId', Url + movieData[i][j]["id"]);
+    //console.log('moviedataUrlId', Url + movieData[i][j]["id"]);
     const modalUrl = Url + movieData[i][j]["id"];
-    
+    //const modalUrl = Url + movieDataId;    
     let promise = await fetch(modalUrl);
     let response = await promise.json();
     
     
     // DOM Image
     movieData = img.src;
-    const DivModalImg = document.querySelector(".img-container");
+    const DivModalImg = document.querySelector(".modal-container__imgContainer");
     DivModalImg.textContent = '';                                   // Efface l'image précédente
     const imgModal = document.createElement("img");
     imgModal.setAttribute("src", movieData);
     DivModalImg.appendChild(imgModal);
 
-    // DOM Générique    
-    const DivMovieDatas = document.querySelector(".generique");
-    DivMovieDatas.textContent = '';
+    // DOM Générique
 
-    let ul0 = document.createElement('ul');
-    ul0.innerHTML = 'Titre';    
-    let li0 = document.createElement('li');
-    li0.innerHTML = response['title'];
-    ul0.appendChild(li0);
-    DivMovieDatas.appendChild(ul0);
+    const title = response['title'];    
+    const display_title = document.getElementById("modal_title");
+    console.log('display_title:', display_title);
+    display_title.innerHTML = title;
+    
+    const genre = response['genres'];
+    const display_genres = document.getElementById("genres");
+    display_genres.innerHTML = 'Genre: ' + genre;
 
-    let ul1 = document.createElement('ul');
-    ul1.innerHTML = 'Genre:';
-    let li1 = document.createElement('li');
-    li1.innerHTML = response['genres'];
-    ul1.appendChild(li1);
-    DivMovieDatas.appendChild(ul1);
+    const date = response['date_published'];
+    const display_date = document.getElementById("date");
+    display_date.innerHTML = 'Date de publication: ' + date;
 
-    let ul2 = document.createElement('ul');
-    ul2.innerHTML = 'Date de sortie:';
-    let li2 = document.createElement('li');
-    li2.innerHTML = response['date_published'];
-    ul2.appendChild(li2);
-    DivMovieDatas.appendChild(ul2);
+    const rate = response['rated'];
+    const display_rate = document.getElementById("rated");
+    display_rate.innerHTML = 'Rated: ' + rate;
 
-    let ul3 = document.createElement('ul');
-    ul3.innerHTML = 'Rated:';
-    let li3 = document.createElement('li');
-    li3.innerHTML = response['rated'];
-    ul3.appendChild(li3);
-    DivMovieDatas.appendChild(ul3);
+    const score = response['imbd_score'];
+    const display_score = document.getElementById("score");
+    display_score.innerHTML = 'Imbd Score: ' + score;
 
-    let ul4 = document.createElement('ul');
-    ul4.innerHTML = 'Score Imbd:';
-    let li4 = document.createElement('li');
-    li4.innerHTML = response['imbd_score'];
-    ul4.appendChild(li4);
-    DivMovieDatas.appendChild(ul4);
+    const realisateur = response['directors'];
+    const display_realisateur = document.getElementById("realisateur");
+    display_realisateur.innerHTML = 'R\u00e9alisateur: ' + realisateur;
 
-    let ul5 = document.createElement('ul');
-    ul5.innerHTML = 'Realisateur:';
-    let li5 = document.createElement('li');
-    li5.innerHTML = response['directors'];
-    ul5.appendChild(li5);
-    DivMovieDatas.appendChild(ul5);
+    const actors = response['actors'];
+    const display_actors = document.getElementById("acteurs");
+    display_actors.innerHTML = 'Distribution: ' + actors;
 
-    let ul6 = document.createElement('ul');
-    ul6.innerHTML = 'Distribution:';
-    let li6 = document.createElement('li');
-    li6.innerHTML = response['actors'];
-    ul6.appendChild(li6);
-    DivMovieDatas.appendChild(ul6);
+    const duration = response['duration'];
+    const display_duration = document.getElementById("duration");
+    display_duration.innerHTML = 'Dur\u00e9e: ' + duration;
 
-    let ul7 = document.createElement('ul');
-    ul7.innerHTML = 'Duree:';
-    let li7 = document.createElement('li');
-    li7.innerHTML = response['duration'];
-    ul7.appendChild(li7);
-    DivMovieDatas.appendChild(ul7);
+    const countries = response['countries'];
+    const display_countries = document.getElementById("countries");
+    display_countries.innerHTML = 'Pays d\'origine: ' + countries;
 
-    let ul8 = document.createElement('ul');
-    ul8.innerHTML = 'Pays d\'origine:';
-    let li8 = document.createElement('li');
-    li8.innerHTML = response['countries'];
-    ul8.appendChild(li8);
-    DivMovieDatas.appendChild(ul8);
+    const boxOffice = response['worldwide_gross_income'];
+    const display_boxOffice = document.getElementById("boxOffice");
+    display_boxOffice.innerHTML = 'R\u00e9sultat du box office: ' + boxOffice;
 
-    let ul9 = document.createElement('ul');
-    ul9.innerHTML = 'Resultat Box Office:';
-    let li9 = document.createElement('li');
-    li9.innerHTML = response['worldwide_gross_income'];
-    ul8.appendChild(li9);
-    DivMovieDatas.appendChild(ul9);
+    const resume = response['description'];
+    const display_resume = document.getElementById("resume");
+    display_resume.innerHTML = 'R\u00e9sum\u00e9 du film: ' + resume;
 
-    let ul10 = document.createElement('ul');
-    ul10.innerHTML = 'Resume du film:';
-    let li10 = document.createElement('li');
-    li10.innerHTML = response['description'];
-    ul10.appendChild(li10);
-    DivMovieDatas.appendChild(ul10);
-
-    // DOM Close Button
     const Close = document.querySelector('Close');   
 }
-
+const modal_container = document.querySelector(".modal-container")
 Close.addEventListener('click', () => {
     modal_container.style.display = 'none';
 });
-
-
 
 //====================== Création Page HTML/DOM ========================
 
@@ -327,7 +275,7 @@ function createContainers(i) {
     img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
         let str = e.target.id;
         Pos[i] -= 1;                                // imgL1         
-        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);        // 4->nbSlides displayed
+        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);        
     });
     
     chevronL.appendChild(img);        
@@ -344,10 +292,8 @@ function createContainers(i) {
 
     img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgR1" src="fonts/right.png">)        
         let str = e.target.id;      // imgR1       R='right' i = 1(str[4])        
-        Pos[i] += 1;
-        //console.log('J:', j);
-        //displayImgArrays(i, movieData)
-        displayPanoramaAnim(i, 4, nbImgUrl, url, movieData);
+        Pos[i] += 1;        
+        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);
     });
 
     chevronR.appendChild(img);

@@ -51,21 +51,52 @@
     </div>
 
     <!--================================= Modale ==========================================-->
-    <aside class="modal-container" id="modal_container">
-        <div class="modal">
-            <div class="img-container"></div>
+    <section class="modal-container" id="modal">
 
-            <!--========== Générique ==========-->
-            <div class="generique">
-                
-            </div>
+        <!--========== En tête + titre ============-->
+        <div class="modal-container__header">
+            <div class="modal-container__inner"><span id="modal_title"></span></div>
+            
+            <!--========= Close Button ========-->
             <div class="Button">
-                <!--========== Close ==============-->
-                <button id="Close">Close</button>                
+                <button id="Close">Close</button>
             </div>
         </div>
-        
-    </aside>
+
+        <!--========== Image + Générique ==========-->
+        <div class="modal-container__movieDatas">
+            <div class="modal-container__imgContainer"></div>
+            <div class="modal-container__generique1">
+                <ul>
+                    <li id="genres"></li>
+                    <li id="date"></li>
+                    <li id="rated"></li>
+                    <li id="score"></li>
+                    <li id="realisateur"></li>
+                </ul>
+                <div class="modal-container__generique2">
+                    <ul>
+                        <li id="acteurs"></li>
+                    </ul>
+                </div>
+                <div class="modal-container__generique3">
+                    <ul>
+                        <li id="duration"></li>
+                        <li id="countries"></li>
+                        <li id="boxOffice"></li>
+                    </ul>
+                </div>
+                <div class="modal-container__generique3">
+                    <ul>
+                        <li id="resume"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
     
     <!--================================ caroussel ========================================-->
     <div class="carousel">        
