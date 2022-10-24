@@ -7,7 +7,7 @@ let paramCat = ['', '&genre=Action', '&genre=Animation', '&genre=Adventure'];
 let promise = [];
 let response = [];
 
-// =====================Le Meilleur score================
+// ===================== Manchette meilleur score ====================
     const promise00 = fetch(Url + param1);
     promise00.then(async (responseData) => {
         const response = await responseData.json();
@@ -44,7 +44,7 @@ let response = [];
     })
 
 // ============ Création classe datas films =============
-
+/*
 class MovieAllDatas {
     constructor(id, url, title, image_url, genres, date_published,
         rated, imdb_score, directors, actors,
@@ -80,18 +80,19 @@ async function getAllMovieData(url) {
 
     return movieAllDatas;
 }
-
+*/
 class MovieDatas {
-    constructor(id, url) {
+    constructor(id, url, genres) {
         this.id = id;
         this.url = url;
+        this.genres = genres;
     }
 }
 
 async function getMovieData(url) {    
     const promise1 = await fetch(url);
     const response1 = await promise1.json();
-    const movieData = new MovieDatas(response1["id"], response1["image_url"]);
+    const movieData = new MovieDatas(response1["id"], response1["image_url"], response1["genres"]);
     return movieData;
 }
 
@@ -250,9 +251,8 @@ async function displayDataModal(img, movieData, i, j) {
     const resume = response['description'];
     const display_resume = document.getElementById("resume");
     display_resume.innerHTML = 'R\u00e9sum\u00e9 du film: ' + resume;
-
-    const Close = document.querySelector('Close');   
 }
+
 const modal_container = document.querySelector(".modal-container")
 Close.addEventListener('click', () => {
     modal_container.style.display = 'none';
@@ -260,8 +260,8 @@ Close.addEventListener('click', () => {
 
 //====================== Création Page HTML/DOM ========================
 
-function createContainers(i) {
-    let movieTab = ['Films les mieux not\u00e9s', 'Cat\u00e9gorie1', 'Cat\u00e9gorie2', 'Cat\u00e9gorie3'];
+function createContainers(i) {    
+    let movieTab = ['Films les mieux not\u00e9s', 'Action', 'Animation', 'Aventure'];
     const DivContainer = document.querySelector(".carousel");
     
     const newDivMain = document.createElement("div");
@@ -271,15 +271,11 @@ function createContainers(i) {
     rowId.classList.add('rowId' + i);
     newDivMain.classList.add('carouselbox' + i);
     rowId.innerHTML = movieTab[i];
-    //console.log('mm:', movieTab[i]);
-    
-    
-
     
     let chevronL = document.createElement("div");    
     img = document.createElement('img');
     img.setAttribute("id", "imgL" + i);
-    img.setAttribute("src", "fonts/left.png");
+    img.setAttribute("src", "img/left.png");
 
     img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
         let str = e.target.id;
@@ -297,7 +293,7 @@ function createContainers(i) {
     let chevronR = document.createElement("div");    
     img = document.createElement('img');
     img.setAttribute("id", "imgR" + i);
-    img.setAttribute("src", "fonts/right.png");
+    img.setAttribute("src", "img/right.png");
 
     img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgR1" src="fonts/right.png">)        
         let str = e.target.id;      // imgR1       R='right' i = 1(str[4])        
