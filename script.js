@@ -1,14 +1,11 @@
 // ===================== Init datas =====================
 let Url = "http://localhost:8000/api/v1/titles/";
 let param1 = '?sort_by=-imdb_score';
-let param2 = '&page=2';
+// let param2 = '&page=2';
 let paramCat = ['', '&genre=Action', '&genre=Animation', '&genre=Adventure'];
 
-let promise = [];
-let response = [];
-
 // ===================== Manchette meilleur score ====================
-    const promise00 = fetch(Url + param1);
+    const promise00 = fetch(Url + param1);          // tri meilleur score
     promise00.then(async (responseData) => {
         const response = await responseData.json();
 
@@ -43,44 +40,7 @@ let response = [];
         }
     })
 
-// ============ Création classe datas films =============
-/*
-class MovieAllDatas {
-    constructor(id, url, title, image_url, genres, date_published,
-        rated, imdb_score, directors, actors,
-        duration, countries, worldwide_gross_income,
-        description) {
-        this.id = id;
-        this.url = url;
-        this.title = title;
-        this.image_url = image_url;
-        this.genres = genres;
-        this.date_published = date_published;
-        this.rated = rated;
-        this.imdb_score = imdb_score;
-        this.directors = directors;
-        this.actors = actors;
-        this.duration = duration;
-        this.countries = countries;
-        this.worldwide_gross_income = worldwide_gross_income;
-        this.description = description;
-    }
-}
 
-async function getAllMovieData(url) {
-    const promise1 = await fetch(url);
-    const response1 = await promise1.json();
-    
-    const movieAllDatas = new MovieAllDatas(response1["id"], response1["url"],
-        response1["title"], response1["image_url"], response1["genres"],
-        response1["date_published"], response1["rated"], response1["imdb_score"],
-        response1["directors"], response1["actors"], response1["duration"],
-        response1["countries"], response1["worldwide_gross_income"],
-        response1["description"]);
-
-    return movieAllDatas;
-}
-*/
 class MovieDatas {
     constructor(id, url, genres) {
         this.id = id;
@@ -116,11 +76,7 @@ async function getResponse(url, i, nbImgUrl) {           // 4 x
     carouselContainer.textContent = '';
 }
 
-async function generateData() {
-    for (let i = 0; i < 4; i++) {        
-        await getResponse(Url + param1 + paramCat[i], i, nbImgUrl); // Url + sort + category
-    }
-}
+
 
 
  // Affichage Images dans index.html
@@ -169,13 +125,65 @@ function displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData) {
     }
 }
 
+async function generateData() {
+    for (let i = 0; i < 4; i++) {
+        await getResponse(Url + param1 + paramCat[i], i, nbImgUrl); // Url + sort + category
+    }
+}
+
 Promise.all([generateData()]).then (() => { 
     for (let i = 0; i < 4; i++) {        
         displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);                
     }
 })
 
-// =============================== Affichage carrousel ==============================
+
+//====================== Création Page HTML/DOM Caroussel ========================
+
+function createContainers(i) {
+    let movieTab = ['Films les mieux not\u00e9s', 'Action', 'Animation', 'Aventure'];
+    const DivContainer = document.querySelector(".carousel");
+
+    const newDivMain = document.createElement("div");
+    const rowId = document.createElement("div");
+    DivContainer.appendChild(rowId);
+    DivContainer.appendChild(newDivMain);
+    rowId.classList.add('rowId' + i);
+    newDivMain.classList.add('carouselbox' + i);
+    rowId.innerHTML = movieTab[i];
+
+    let chevronL = document.createElement("div");
+    img = document.createElement('img');
+    img.setAttribute("id", "imgL" + i);
+    img.setAttribute("src", "img/left.png");
+
+    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
+        let str = e.target.id;
+        Pos[i] -= 1;                                // imgL1         
+        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);
+    });
+
+    chevronL.appendChild(img);
+    newDivMain.appendChild(chevronL);
+
+    const newDivImg = document.createElement("div");
+    newDivImg.classList.add('carouselimg' + i);
+    newDivMain.appendChild(newDivImg);
+
+    let chevronR = document.createElement("div");
+    img = document.createElement('img');
+    img.setAttribute("id", "imgR" + i);
+    img.setAttribute("src", "img/right.png");
+
+    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgR1" src="fonts/right.png">)        
+        let str = e.target.id;                          // imgR1       R='right' i = 1(str[4])        
+        Pos[i] += 1;
+        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);
+    });
+
+    chevronR.appendChild(img);
+    newDivMain.appendChild(chevronR);
+}
 
 // Slider Containers Creation
 for (let i = 0; i < 4; i++) {
@@ -186,17 +194,18 @@ for (let i = 0; i < 4; i++) {
 
 let modal = document.getElementById('modal');
 let modalData = [];
+
 async function displayDataModal(img, movieData, i, j) {    
-//async function displayDataModal(img, movieDataId) {    
+    
     modal.style.display = 'block';
     // IMG
-    //console.log('moviedataUrlId', Url + movieData[i][j]["id"]);
-    const modalUrl = Url + movieData[i][j]["id"];
-    //const modalUrl = Url + movieDataId;    
+         
+    const modalUrl = Url + movieData[i][j]["id"]; //(exemple: http://localhost:8000/api/v1/titles/9008642)        
     let promise = await fetch(modalUrl);
-    let response = await promise.json();
-    
-    
+    let response = await promise.json();    /* (exemple: {"id": 1508669,
+     * "url": "http://localhost:8000/api/v1/titles/1508669", title: "Hopeful Notes"...)
+     * */
+
     // DOM Image
     movieData = img.src;
     const DivModalImg = document.querySelector(".modal-container__imgContainer");
@@ -213,7 +222,7 @@ async function displayDataModal(img, movieData, i, j) {
     display_title.innerHTML = title;
     
     const genre = response['genres'];
-    const display_genres = document.getElementById("genres");
+    const display_genres = document.getElementById("genre");
     display_genres.innerHTML = 'Genre: ' + genre;
 
     const date = response['date_published'];
@@ -258,49 +267,3 @@ Close.addEventListener('click', () => {
     modal_container.style.display = 'none';
 });
 
-//====================== Création Page HTML/DOM ========================
-
-function createContainers(i) {    
-    let movieTab = ['Films les mieux not\u00e9s', 'Action', 'Animation', 'Aventure'];
-    const DivContainer = document.querySelector(".carousel");
-    
-    const newDivMain = document.createElement("div");
-    const rowId = document.createElement("div");
-    DivContainer.appendChild(rowId);
-    DivContainer.appendChild(newDivMain);
-    rowId.classList.add('rowId' + i);
-    newDivMain.classList.add('carouselbox' + i);
-    rowId.innerHTML = movieTab[i];
-    
-    let chevronL = document.createElement("div");    
-    img = document.createElement('img');
-    img.setAttribute("id", "imgL" + i);
-    img.setAttribute("src", "img/left.png");
-
-    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgL1" src="fonts/left.png">)
-        let str = e.target.id;
-        Pos[i] -= 1;                                // imgL1         
-        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);        
-    });
-    
-    chevronL.appendChild(img);        
-    newDivMain.appendChild(chevronL);
-
-    const newDivImg = document.createElement("div");
-    newDivImg.classList.add('carouselimg' + i);
-    newDivMain.appendChild(newDivImg);
-    
-    let chevronR = document.createElement("div");    
-    img = document.createElement('img');
-    img.setAttribute("id", "imgR" + i);
-    img.setAttribute("src", "img/right.png");
-
-    img.addEventListener("click", function (e) {        // exemple (e.target = <img id="imgR1" src="fonts/right.png">)        
-        let str = e.target.id;      // imgR1       R='right' i = 1(str[4])        
-        Pos[i] += 1;        
-        displayPanoramaAnim(i, nbSlides, nbImgUrl, url, movieData);
-    });
-
-    chevronR.appendChild(img);
-    newDivMain.appendChild(chevronR);   
-}

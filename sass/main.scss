@@ -142,7 +142,6 @@ body {
     margin-left: 40px;
 }
 
-
 /* ================================= Caroussel ========================================*/
 .carousel {
     font-family: Arial;
@@ -169,18 +168,18 @@ body {
     color: orangered;
 }
 
-/* Arrows */
+/* Arrows */ 
 #imgL0, #imgL1, #imgL2, #imgL3, #imgR0, #imgR1, #imgR2, #imgR3 {
     padding-top: 90px;
     width: 40px;
     height: 40px;
 }
 
-.carouselimg0 .carouselimg1 .carouselimg2 .carouselimg3 {
+.carouselimg0, .carouselimg1, .carouselimg2, .carouselimg3 {
     margin-left: 10px;
     margin-right: 10px;
     height: 250px;
-    width: 60%;
+    width: 42%;
     overflow: scroll;
     white-space: nowrap;
     display: inline-block;
@@ -190,20 +189,7 @@ body {
     padding-bottom: 10px;
 }
 
- .carouselimg0 img {
-    min-width: 147px;
-    max-width: 147px;
-    height: 200px;
-    background-size: cover;
-    background-color: darkmagenta;
-    padding: 3px;
-    margin: 5px 10px;
-    cursor: pointer;
-    transition: 0.8s ease;
-    z-index: 2;    
-}
-
-.carouselimg1 img {
+.carouselimg0 img, .carouselimg1 img, .carouselimg2 img, .carouselimg3 img {
     min-width: 147px;
     max-width: 147px;
     height: 200px;
@@ -216,47 +202,7 @@ body {
     z-index: 2;
 }
 
-.carouselimg2 img {
-    min-width: 147px;
-    max-width: 147px;
-    height: 200px;
-    background-size: cover;
-    background-color: darkmagenta;
-    padding: 3px;
-    margin: 5px 10px;
-    cursor: pointer;
-    transition: 0.8s ease;
-    z-index: 2;
-}
-
-.carouselimg3 img {
-    min-width: 147px;
-    max-width: 147px;
-    height: 200px;
-    background-size: cover;
-    background-color: darkmagenta;
-    padding: 3px;
-    margin: 5px 10px;
-    cursor: pointer;
-    transition: 0.8s ease;
-    z-index: 2;
-}
-
-.carouselimg0 img:hover{
-    transform: scale(1.2);
-    z-index: 5;
-}
-
-.carouselimg1 img:hover {
-    transform: scale(1.2);
-    z-index: 5;
-}
-
-.carouselimg2 img:hover {
-    transform: scale(1.2);
-    z-index: 5;
-}
-.carouselimg3 img:hover {
+.carouselimg0 img:hover, .carouselimg1 img:hover, .carouselimg2 img:hover, .carouselimg3 img:hover {
     transform: scale(1.2);
     z-index: 5;
 }
@@ -264,7 +210,7 @@ body {
 /* ========================================= Modale ======================================*/
 .modal-container {
     font-family: Arial;
-    top: 50%;    
+    top: 50%;
     position: fixed;
     top: 0;
     right: 0;
@@ -314,10 +260,11 @@ body {
     z-index: 1000;
 }
 
-modal-container__movieDatas {
+.modal-container__movieDatas {
     display: flex;
-    height: 30%;
-    width: 700px;    
+    height: 70%;
+    width: 100%;
+    background-color: black;
 }
 
 .modal-container__imgContainer {
@@ -328,26 +275,21 @@ modal-container__movieDatas {
     height: 90%;
 }
 
-.modal-container__generique1 {
+.modal-container__generique {
     margin-left: 10px;
     margin-top: 20px;
-    padding-left: 10px;
+    padding-left: 150px;
     padding-bottom: 20px;
-    
-    float: left;
+    float: right;
     display: inline-block;
     height: 400px;
-    width: 700px;
+    width: 1000px;
+    color: lightgray;
 }
 
-.modal-container__generique{
-    color: red;
-    width: 100px;
+.modal-container__generique li {
+    color: lightgray;
 }
 
- ul {
-    margin: 10px;
-    color: white;
-}
 
  
