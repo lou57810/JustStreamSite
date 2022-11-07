@@ -173,7 +173,7 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   height: 250px;
-  width: 42%;
+  width: 45%;
   overflow: scroll;
   white-space: nowrap;
   display: inline-block;
@@ -189,7 +189,6 @@ body {
   height: 200px;
   background-size: cover;
   background-color: darkmagenta;
-  padding: 3px;
   margin: 5px 10px;
   cursor: pointer;
   transition: 0.8s ease;
