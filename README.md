@@ -1,6 +1,6 @@
-#titre JustStreamIt
+# titre JustStreamIt
 
-##titre Pré-requis
+## titre Pré-requis
 
 ### Mise en place
 1. Créer un repertoire de travail: ``` $ mkdir JustStreamIt ```
